@@ -1,0 +1,51 @@
+/* Basic Reset and Setup */
+.sheet-container {
+  display: grid;
+  /* Define your grid columns here, e.g., "1fr 1fr" for two equal columns */
+  grid-template-columns: 1fr; 
+  gap: 10px; /* Space between grid items */
+  padding: 10px;
+  max-width: 800px; /* Optional: adjust as needed */
+  margin: auto; /* Optional: center the sheet */
+}
+
+/* Styling for sections */
+.sheet-section {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* Styling for input fields */
+.sheet-input, 
+.sheet-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styling for labels */
+.sheet-label {
+  font-weight: bold;
+  display: block; /* Makes labels appear on their own line */
+  margin-top: 10px;
+}
+
+/* Example of a roll button style - this assumes you have a button in your HTML */
+.sheet-roll-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+}

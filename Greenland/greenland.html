@@ -1,0 +1,132 @@
+<div class="charsheet">
+    <button data-i18n="charmancer-launch" name="act_launch_charmancer" type="action"></button>
+    <div class="tab-content" id="basic-tab">
+        <div class="info-grid">
+            <div class="info-field">
+                <label>Character Name</label>
+                <input type="text" name="attr_character_name" placeholder="Name">
+            </div>
+
+            <div class="info-field">
+                <label>Player Name</label>
+                <input type="text" name="attr_player_name" placeholder="Player">
+            </div>
+
+            <div class="info-field">
+                <label>Age</label>
+                <select name="attr_age">
+                    <option value="">Select Age</option>
+                    <option value="child">Child</option>
+                    <option value="young_adult">Young Adult</option>
+                    <option value="adult" selected>Adult</option>
+                    <option value="middle_aged">Middle Aged</option>
+                    <option value="venerable">Venerable</option>
+                    <option value="elderly">Elderly</option>
+                    <option value="ancient">Ancient</option>
+                </select>
+            </div>
+
+            <div class="info-field">
+                <label>Height (m)</label>
+                <input type="number" name="attr_height" step="0.1" min="1.4" max="2.0" value="1.7" placeholder="1.7">
+            </div>
+
+            <div class="info-field">
+                <label>Weight (kg)</label>
+                <input type="number" name="attr_weight" step="0.5" min="40" value="70" placeholder="70">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates -->
+<rolltemplate class="sheet-rolltemplate-height">
+    <div class="sheet-template-container">
+        <div class="sheet-template-header">Height</div>
+        <div class="sheet-template-row">
+            <span>Base: </span>1.7m
+        </div>
+        <div class="sheet-template-row">
+            <span>Sign: {{sign}}</span>(
+            {{#rollTotal() sign 1}}-{{/rollTotal() sign 1}}
+            {{#rollTotal() sign 2}}+{{/rollTotal() sign 2}}
+            {{#rollTotal() sign 3}}-{{/rollTotal() sign 3}}
+            {{#rollTotal() sign 4}}+{{/rollTotal() sign 4}}
+            {{#rollTotal() sign 5}}-{{/rollTotal() sign 5}}
+            {{#rollTotal() sign 6}}+{{/rollTotal() sign 6}}
+            )
+        </div>
+        <div class="sheet-template-row">
+            <span>Magnitude: {{magnitude}}</span>(
+            {{#rollBetween() magnitude 1 3}}0.1m{{/rollBetween() magnitude 1 3}}
+            {{#rollBetween() magnitude 4 5}}0.2m{{/rollBetween() magnitude 4 5}}
+            {{#rollBetween() magnitude 6 6}}0.3m{{/rollBetween() magnitude 6 6}}
+            )
+        </div>
+    </div>
+</rolltemplate>
+<!-- https://help.roll20.net/hc/en-us/articles/360037257394-Charactermancer -->
+<charmancer class="sheet-charmancer-intro">
+  <div class="gl-charmancer-wrapper">
+    <div>
+        <p class="gl-charmancer-description" data-i18n="charmancer-step1-intro"></p>
+    </div>
+    <div class="gl-charmancer-pagecontrol">
+      <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
+      <button class="gl-charmancer-pagecontrol-next" data-i18n="charmancer-next" type="submit" value="physical">next</button>
+    </div>
+  </div>
+</charmancer>
+<charmancer class="sheet-charmancer-physical">
+  <div class="gl-charmancer-wrapper">
+    <div>
+        <p class="gl-charmancer-description" data-i18n="charmancer-step2-physical"></p>
+        <div class="info-field">
+            <label>Height (m):</label>
+            <input type="number" name="comp_height" step="0.1" min="1.4" max="2.0" value="1.7" />
+            <button class="gl-charmancer-button--roll" name="roll_height" type="roll" value="&amp;{template:height},{{sign=[[1d6]]}},{{magnitude=[[1d6]]}}">Roll</button>
+        </div>
+    </div>
+
+    <div class="gl-charmancer-pagecontrol">
+      <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="intro">next</button>
+      <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
+      <button class="gl-charmancer-pagecontrol-finish" data-i18n="charmancer-finish" type="finish" value="newcharacter">finish</button>
+    </div>
+  </div>
+</charmancer>
+<script type="text/worker">
+
+const heightRollSign = (result) => {
+    return (result % 2 == 0) ? +1.0 : -1.0;
+}
+
+const heightRollMagnitude = (result) => {
+    if (result >= 1 && result <= 3) {
+        return 0.1;
+    } else if (result == 4 || result == 5) {
+        return 0.2;
+    } else {
+        return 0.3;
+    }
+}
+
+const onMancerRollHeight = (rolls) => {
+    const sign = heightRollSign(rolls[0].result);
+    const magnitude = heightRollMagnitude(rolls[1].result);
+    setAttrs({height: (1.7 + sign * magnitude).toFixed(1)});
+}
+on(`mancerroll:height`, eventInfo => onMancerRollHeight(eventInfo.roll));
+
+const setupCharacter = (data) => {
+    const updateAttrs = {
+        height: data?.physical?.values?.height,
+    };
+    setAttrs(updateAttrs);
+    deleteCharmancerData();
+    finishCharactermancer();
+}
+on("mancerfinish:newcharacter", eventInfo => setupCharacter(eventInfo.data));
+
+// event handlers
+on("clicked:launch_charmancer", eventInfo => startCharactermancer("intro"));
+</script>
