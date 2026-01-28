@@ -46,20 +46,16 @@
             <span>Base: </span>1.7m
         </div>
         <div class="sheet-template-row">
-            <span>Sign: {{sign}}</span>(
+            <span>Adjustment Sign: {{sign}}</span>(
+            {{#rollTotal() sign 0}}+{{/rollTotal() sign 0}}
             {{#rollTotal() sign 1}}-{{/rollTotal() sign 1}}
-            {{#rollTotal() sign 2}}+{{/rollTotal() sign 2}}
-            {{#rollTotal() sign 3}}-{{/rollTotal() sign 3}}
-            {{#rollTotal() sign 4}}+{{/rollTotal() sign 4}}
-            {{#rollTotal() sign 5}}-{{/rollTotal() sign 5}}
-            {{#rollTotal() sign 6}}+{{/rollTotal() sign 6}}
             )
         </div>
         <div class="sheet-template-row">
-            <span>Magnitude: {{magnitude}}</span>(
-            {{#rollBetween() magnitude 1 3}}0.1m{{/rollBetween() magnitude 1 3}}
-            {{#rollBetween() magnitude 4 5}}0.2m{{/rollBetween() magnitude 4 5}}
-            {{#rollBetween() magnitude 6 6}}0.3m{{/rollBetween() magnitude 6 6}}
+            <span>Adjustment Magnitude: {{magnitude}}</span>(
+            {{#rollBetween() magnitude 1 3}}0.1 m{{/rollBetween() magnitude 1 3}}
+            {{#rollBetween() magnitude 4 5}}0.2 m{{/rollBetween() magnitude 4 5}}
+            {{#rollBetween() magnitude 6 6}}0.3 m{{/rollBetween() magnitude 6 6}}
             )
         </div>
     </div>
@@ -83,7 +79,7 @@
         <div class="info-field">
             <label>Height (m):</label>
             <input type="number" name="comp_height" step="0.1" min="1.4" max="2.0" value="1.7" />
-            <button class="gl-charmancer-button--roll" name="roll_height" type="roll" value="&amp;{template:height},{{sign=[[1d6]]}},{{magnitude=[[1d6]]}}">Roll</button>
+            <button class="gl-charmancer-button--roll" name="roll_height" type="roll" value="&amp;{template:height},{{sign=[[1d6%2]]}},{{magnitude=[[1d6]]}}">Roll</button>
         </div>
     </div>
 
@@ -97,7 +93,7 @@
 <script type="text/worker">
 
 const heightRollSign = (result) => {
-    return (result % 2 == 0) ? +1.0 : -1.0;
+    return (result == 0) ? +1.0 : -1.0;
 }
 
 const heightRollMagnitude = (result) => {
