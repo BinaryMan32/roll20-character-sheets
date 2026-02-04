@@ -28,12 +28,12 @@
 
             <div class="info-field">
                 <label>Height (m)</label>
-                <input type="number" name="attr_height" step="0.1" min="1.4" max="2.0" value="1.7" placeholder="1.7">
+                <input type="number" name="attr_height" step="0.1" min="1.4" max="2.0" value="1.7">
             </div>
 
             <div class="info-field">
                 <label>Weight (kg)</label>
-                <input type="number" name="attr_weight" step="0.5" min="40" value="70" placeholder="70">
+                <input type="number" name="attr_weight" step="0.5" min="40" value="70">
             </div>
         </div>
     </div>
@@ -77,9 +77,23 @@
     <div>
         <p class="gl-charmancer-description" data-i18n="charmancer-step2-physical"></p>
         <div class="info-field">
-            <label>Height (m):</label>
-            <input type="number" name="comp_height" step="0.1" min="1.4" max="2.0" value="1.7" />
+            <label>
+                Height (m):
+                <input type="number" name="comp_height" step="0.1" min="1.4" max="2.0" value="1.7" />
+            </label>
             <button class="gl-charmancer-button--roll" name="roll_height" type="roll" value="&amp;{template:height},{{sign=[[1d6%2]]}},{{magnitude=[[1d6]]}}">Roll</button>
+        </div>
+        <div class="info-field">
+            <label>
+                Min Weight (kg):
+                <input type="number" name="comp_weight_min" value="55" readonly />
+            </label>
+        </div>
+        <div class="info-field">
+            <label>
+                Weight (kg):
+                <input type="number" name="comp_weight" step="5" value="55" />
+            </label>
         </div>
     </div>
 
@@ -111,16 +125,46 @@ const heightRollMagnitude = (result) => {
     }
 }
 
+const HEIGHT_AVG = 1.7;
+const HEIGHT_MIN = 1.4;
+const WEIGHT_MIN = 40;
+const WEIGHT_MIN_PER_METER = 50;
+
 const onMancerRollHeight = (rolls) => {
     const sign = heightRollSign(rolls[0].result);
     const magnitude = heightRollMagnitude(rolls[1].result);
-    setAttrs({height: (1.7 + sign * magnitude).toFixed(1)});
+    const height = (HEIGHT_AVG + sign * magnitude).toFixed(1);
+    console.log(`onMancerRollHeight: sign=${sign} magnitude=${magnitude} height=${height}`);
+    setAttrs({height});
 }
 on(`mancerroll:height`, eventInfo => onMancerRollHeight(eventInfo.roll));
 
+on("mancerchange:height", function(eventInfo) {
+    const height = parseFloat(eventInfo.newValue) || HEIGHT_AVG;
+    const weight_min = Math.round((height - HEIGHT_MIN) * WEIGHT_MIN_PER_METER + WEIGHT_MIN)
+    let attrs = {weight_min};
+    const weight = parseInt(getCharmancerData().physical.values.weight) || WEIGHT_MIN;
+    console.log(`mancerchange:height=${height} weight_min=${weight_min} weight=${weight}`);
+    if (weight < weight_min) {
+        attrs.weight = weight_min;
+    }
+    setAttrs(attrs, {silent: true});
+});
+
+on("mancerchange:weight", (eventInfo) => {
+    const weight_min = getCharmancerData().physical.values.weight_min;
+    const weight = parseInt(eventInfo.newValue) || WEIGHT_MIN;
+    console.log(`mancerchange:weight=${weight} weight_min=${weight_min}`);
+    if (weight < weight_min) {
+        setAttrs({weight: weight_min}, {silent: true});
+    }
+});
+
 const setupCharacter = (data) => {
+    const physical = data?.physical?.values;
     const updateAttrs = {
-        height: data?.physical?.values?.height,
+        height: physical.height,
+        weight: physical.weight,
     };
     setAttrs(updateAttrs);
     deleteCharmancerData();
