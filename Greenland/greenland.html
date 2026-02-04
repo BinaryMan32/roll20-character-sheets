@@ -3,37 +3,46 @@
     <div class="tab-content" id="basic-tab">
         <div class="info-grid">
             <div class="info-field">
-                <label>Character Name</label>
-                <input type="text" name="attr_character_name" placeholder="Name">
+                <label>
+                    Character Name:
+                    <input type="text" name="attr_character_name" placeholder="Name">
+                </label>
             </div>
 
             <div class="info-field">
-                <label>Player Name</label>
-                <input type="text" name="attr_player_name" placeholder="Player">
+                <label>
+                    Player Name:
+                    <input type="text" name="attr_player_name" placeholder="Player">
+                </label>
             </div>
 
             <div class="info-field">
-                <label>Age</label>
-                <select name="attr_age">
-                    <option value="">Select Age</option>
-                    <option value="child">Child</option>
-                    <option value="young_adult">Young Adult</option>
-                    <option value="adult" selected>Adult</option>
-                    <option value="middle_aged">Middle Aged</option>
-                    <option value="venerable">Venerable</option>
-                    <option value="elderly">Elderly</option>
-                    <option value="ancient">Ancient</option>
-                </select>
+                <label>Age:
+                    <select name="attr_age">
+                        <option value="">Select Age</option>
+                        <option value="child">Child</option>
+                        <option value="young_adult">Young Adult</option>
+                        <option value="adult" selected>Adult</option>
+                        <option value="middle_aged">Middle Aged</option>
+                        <option value="venerable">Venerable</option>
+                        <option value="elderly">Elderly</option>
+                        <option value="ancient">Ancient</option>
+                    </select>
+                </label>
             </div>
 
             <div class="info-field">
-                <label>Height (m)</label>
-                <input type="number" name="attr_height" step="0.1" min="1.4" max="2.0" value="1.7">
+                <label>
+                    Height (m):
+                    <input type="number" name="attr_height" step="0.1" min="1.4" max="2.0" value="1.7" readonly>
+                </label>
             </div>
 
             <div class="info-field">
-                <label>Weight (kg)</label>
-                <input type="number" name="attr_weight" step="0.5" min="40" value="70">
+                <label>
+                    Weight (kg):
+                    <input type="number" name="attr_weight" min="40" value="70" readonly>
+                </label>
             </div>
         </div>
     </div>
