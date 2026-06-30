@@ -45,6 +45,25 @@
                 </label>
             </div>
         </div>
+
+        <div class="gl-traits-section">
+            <h3 data-i18n="traits-heading">Traits</h3>
+            <div class="gl-trait-display">
+                <label data-i18n="trait-memory">Memory</label>
+                <input type="number" name="attr_trait_memory" readonly>
+                <button type="roll" name="roll_memory" value="&amp;{template:default} {{name=Trait: Memory}} {{Result=[[ [[@{trait_memory} + ?{Additional Dice|0}]]d6kh1]]}}" data-i18n="trait-roll">Roll</button>
+            </div>
+            <div class="gl-trait-display">
+                <label data-i18n="trait-disease-resistance">Disease Resistance</label>
+                <input type="number" name="attr_trait_disease_resistance" readonly>
+                <button type="roll" name="roll_memory" value="&amp;{template:default} {{name=Trait: Disease Resistance}} {{Result=[[ [[@{trait_disease_resistance} + ?{Additional Dice|0}]]d6kh1]]}}" data-i18n="trait-roll">Roll</button>
+            </div>
+            <div class="gl-trait-display">
+                <label data-i18n="trait-toxin-resistance">Toxin Resistance</label>
+                <input type="number" name="attr_trait_toxin_resistance" readonly>
+                <button type="roll" name="roll_memory" value="&amp;{template:default} {{name=Trait: Toxin Resistance}} {{Result=[[ [[@{trait_toxin_resistance} + ?{Additional Dice|0}]]d6kh1]]}}" data-i18n="trait-roll">Roll</button>
+            </div>
+        </div>
     </div>
 </div>
 <!-- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates -->
@@ -110,6 +129,45 @@
     <div class="gl-charmancer-pagecontrol">
       <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="intro">next</button>
       <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
+      <button class="gl-charmancer-pagecontrol-next" data-i18n="charmancer-next" type="submit" value="traits">next</button>
+    </div>
+  </div>
+</charmancer>
+<charmancer class="sheet-charmancer-traits">
+  <div class="gl-charmancer-wrapper">
+    <div>
+        <p class="gl-charmancer-description" data-i18n="charmancer-step3-traits"></p>
+        <div class="gl-trait-row">
+            <label data-i18n="trait-memory">Memory</label>
+            <p class="gl-trait-desc" data-i18n="trait-memory-desc"></p>
+            <select name="comp_trait_memory">
+                <option value="1" selected data-i18n="trait-dice-1">1 die</option>
+                <option value="2" data-i18n="trait-dice-2">2 dice</option>
+                <option value="3" data-i18n="trait-dice-3">3 dice</option>
+            </select>
+        </div>
+        <div class="gl-trait-row">
+            <label data-i18n="trait-toxin-resistance">Toxin Resistance</label>
+            <p class="gl-trait-desc" data-i18n="trait-toxin-resistance-desc"></p>
+            <select name="comp_trait_toxin_resistance">
+                <option value="1" data-i18n="trait-dice-1">1 die</option>
+                <option value="2" data-i18n="trait-dice-2">2 dice</option>
+                <option value="3" selected data-i18n="trait-dice-3">3 dice</option>
+            </select>
+        </div>
+        <div class="gl-trait-row">
+            <label data-i18n="trait-disease-resistance">Disease Resistance</label>
+            <p class="gl-trait-desc" data-i18n="trait-disease-resistance-desc"></p>
+            <select name="comp_trait_disease_resistance">
+                <option value="1" data-i18n="trait-dice-1">1 die</option>
+                <option value="2" selected data-i18n="trait-dice-2">2 dice</option>
+                <option value="3" data-i18n="trait-dice-3">3 dice</option>
+            </select>
+        </div>
+    </div>
+    <div class="gl-charmancer-pagecontrol">
+      <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="physical">previous</button>
+      <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
       <button class="gl-charmancer-pagecontrol-finish" data-i18n="charmancer-finish" type="finish" value="newcharacter">finish</button>
     </div>
   </div>
@@ -172,11 +230,43 @@ on("mancerchange:weight", (eventInfo) => {
     }
 });
 
+const TRAIT_ATTRS = ['trait_memory', 'trait_toxin_resistance', 'trait_disease_resistance'];
+const TRAIT_DEFAULTS = { trait_memory: 1, trait_toxin_resistance: 2, trait_disease_resistance: 3 };
+
+// getCharmancerData() only contains entries for fields the player has changed
+// fall back to TRAIT_DEFAULTS
+const getTraitValues = (override) => {
+    override = override || {};
+    const charmancerData = getCharmancerData();
+    const stored = (charmancerData && charmancerData.traits && charmancerData.traits.values) || {};
+    return Object.fromEntries(
+        TRAIT_ATTRS.map(a => [a, override[a] || parseInt(stored[a]) || TRAIT_DEFAULTS[a]])
+    );
+};
+
+const enforceTrait = (changedAttr, eventInfo) => {
+    const newValue = parseInt(eventInfo.newValue);
+    const current = getTraitValues({ [changedAttr]: newValue });
+    const others = TRAIT_ATTRS.filter(a => a !== changedAttr);
+    const conflicting = others.find(a => current[a] === newValue);
+    if (conflicting) {
+        const thirdAttr = others.find(a => a !== conflicting);
+        const remaining = [1, 2, 3].find(v => v !== newValue && v !== current[thirdAttr]);
+        setAttrs({ [conflicting]: remaining }, { silent: true });
+    }
+};
+
+TRAIT_ATTRS.forEach(attr => {
+    on(`mancerchange:${attr}`, eventInfo => enforceTrait(attr, eventInfo));
+});
+
 const setupCharacter = (data) => {
     const physical = data?.physical?.values;
+    const traits = getTraitValues();
     const updateAttrs = {
         height: physical.height,
         weight: physical.weight,
+        ...traits,
     };
     setAttrs(updateAttrs);
     deleteCharmancerData();

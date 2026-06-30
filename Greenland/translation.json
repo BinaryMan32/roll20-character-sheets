@@ -2,9 +2,21 @@
   "charmancer-launch": "Launch Charactermancer",
   "charmancer-step1-intro": "Welcome to the Greenland charactermancer.",
   "charmancer-step2-physical": "Customize your physical appearance.",
+  "charmancer-step3-traits": "Assign a number of d6 dice to your character traits. A trait rolls 1, 2, or 3 dice, and each number must be used once.",
   "charmancer-step-final": "Building character.",
   "charmancer-cancel": "cancel",
   "charmancer-next": "next",
   "charmancer-previous": "previous",
-  "charmancer-finish": "finish"
+  "charmancer-finish": "finish",
+  "trait-dice-1": "1 die",
+  "trait-dice-2": "2 dice",
+  "trait-dice-3": "3 dice",
+  "trait-disease-resistance": "Disease Resistance",
+  "trait-disease-resistance-desc": "Your body's ability to resist the effects of bacterial or viral intrusions. Once infected, a disease may take more than one resistance roll to recover from.",
+  "trait-memory": "Memory",
+  "trait-memory-desc": "Recalling information that your character has been exposed to. Negotiate with the GM why your character would know something from their experience. Each time the GM says you remember something, take note of it.",
+  "trait-roll": "Roll",
+  "trait-toxin-resistance": "Toxin Resistance",
+  "trait-toxin-resistance-desc": "Your body's ability to resist the effects of a natural (e.g. occurring biologically) or synthetically-based chemical, whether based on dosage or other mechanisms. Accumulation of the chemical can increase the difficulty to resist the effects of the toxin.",
+  "traits-heading": "Traits"
 }

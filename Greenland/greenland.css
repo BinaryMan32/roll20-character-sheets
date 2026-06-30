@@ -35,6 +35,42 @@
   margin-top: 10px;
 }
 
+.gl-traits-section {
+  margin-top: 15px;
+}
+
+.gl-trait-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.gl-trait-display label {
+  flex: 1;
+  font-weight: bold;
+}
+
+.gl-trait-display input {
+  width: 40px;
+  text-align: center;
+}
+
+.gl-trait-row {
+  margin-bottom: 12px;
+}
+
+.gl-trait-row label {
+  font-weight: bold;
+  display: block;
+}
+
+.gl-trait-desc {
+  font-size: 0.85em;
+  color: #555;
+  margin: 2px 0 4px 0;
+}
+
 /* Example of a roll button style - this assumes you have a button in your HTML */
 .sheet-roll-button {
   background-color: #4CAF50; /* Green */
