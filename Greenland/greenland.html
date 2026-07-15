@@ -111,6 +111,65 @@
                 <button type="action" name="act_roll_awareness" data-i18n="attribute-roll">Roll</button>
             </div>
         </div>
+
+        <div class="gl-skills-section">
+            <h3 data-i18n="skills-heading">Skills</h3>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-legerdemain">Legerdemain</label>
+                <select name="attr_skill_legerdemain_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_legerdemain" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-linguistics">Linguistics</label>
+                <select name="attr_skill_linguistics_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_linguistics" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-logic">Logic</label>
+                <select name="attr_skill_logic_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_logic" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-mechanics">Mechanics</label>
+                <select name="attr_skill_mechanics_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_mechanics" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-survival">Survival</label>
+                <select name="attr_skill_survival_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_survival" data-i18n="skill-roll">Roll</button>
+            </div>
+        </div>
     </div>
 </div>
 <!-- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates -->
@@ -327,6 +386,78 @@
     <div class="gl-charmancer-pagecontrol">
       <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="attributes">previous</button>
       <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
+      <button class="gl-charmancer-pagecontrol-next" data-i18n="charmancer-next" type="submit" value="skills">next</button>
+    </div>
+  </div>
+</charmancer>
+<charmancer class="sheet-charmancer-skills">
+  <div class="gl-charmancer-wrapper">
+    <div>
+        <p class="gl-charmancer-description" data-i18n="charmancer-step-skills"></p>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-legerdemain">Legerdemain</label>
+            <p class="gl-skill-desc" data-i18n="skill-legerdemain-desc"></p>
+            <select name="comp_skill_legerdemain">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-linguistics">Linguistics</label>
+            <p class="gl-skill-desc" data-i18n="skill-linguistics-desc"></p>
+            <select name="comp_skill_linguistics">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-logic">Logic</label>
+            <p class="gl-skill-desc" data-i18n="skill-logic-desc"></p>
+            <select name="comp_skill_logic">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-mechanics">Mechanics</label>
+            <p class="gl-skill-desc" data-i18n="skill-mechanics-desc"></p>
+            <select name="comp_skill_mechanics">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-survival">Survival</label>
+            <p class="gl-skill-desc" data-i18n="skill-survival-desc"></p>
+            <select name="comp_skill_survival">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-summary">
+            <label data-i18n="skill-points-remaining">Points Remaining</label>
+            <input type="text" name="comp_skill_points_remaining" readonly value="0">
+        </div>
+    </div>
+    <input type="checkbox" name="comp_skills_valid" class="gl-charmancer-validity-gate" value="1" checked>
+    <div class="gl-charmancer-pagecontrol">
+      <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="traits">previous</button>
+      <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
       <button class="gl-charmancer-pagecontrol-finish" data-i18n="charmancer-finish" type="finish" value="newcharacter">finish</button>
     </div>
   </div>
@@ -528,10 +659,72 @@ TRAIT_ATTRS.forEach(attr => {
     on(`mancerchange:${attr}`, eventInfo => enforceTrait(attr, eventInfo));
 });
 
+const SKILL_ATTRS = ['skill_legerdemain', 'skill_linguistics', 'skill_logic', 'skill_mechanics', 'skill_survival'];
+const SKILL_DEFAULTS = Object.fromEntries(SKILL_ATTRS.map(attr => [attr, 0]));
+const SKILL_LABELS = {
+    skill_legerdemain: 'Legerdemain',
+    skill_linguistics: 'Linguistics',
+    skill_logic: 'Logic',
+    skill_mechanics: 'Mechanics',
+    skill_survival: 'Survival',
+};
+
+// Mirrors AGE_POINT_BUDGET but tracked separately so it can be tuned
+// independently as more skill groups are added.
+const SKILL_AGE_POINT_BUDGET = {
+    child: -6, young_adult: -2, adult: 0, middle_aged: 0,
+    venerable: 0, elderly: -2, ancient: -6,
+};
+
+const rollSkill = (skillAttr) => {
+    const rollString = `&{template:attribute-roll} {{name=${SKILL_LABELS[skillAttr]}}} `
+        + `{{high=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kh1]]}} `
+        + `{{low=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kl1]]}} `
+        + `{{advantage=$[[0]]}} `
+        + `{{dice=$[[1]]}}`;
+    startRoll(rollString, results => {
+        finishRoll(results.rollId, {});
+    });
+};
+
+SKILL_ATTRS.forEach(skillAttr => {
+    on(`clicked:roll_${skillAttr}`, () => rollSkill(skillAttr));
+});
+
+const getSkillModifierValues = (override) => {
+    override = override || {};
+    const charmancerData = getCharmancerData();
+    const stored = (charmancerData && charmancerData.skills && charmancerData.skills.values) || {};
+    return Object.fromEntries(SKILL_ATTRS.map(attr => {
+        const overrideValue = parseInt(override[attr]);
+        if (!Number.isNaN(overrideValue)) return [attr, overrideValue];
+        const storedValue = parseInt(stored[attr]);
+        if (!Number.isNaN(storedValue)) return [attr, storedValue];
+        return [attr, SKILL_DEFAULTS[attr]];
+    }));
+};
+
+const updateSkillPointsRemaining = (override) => {
+    const modifiers = getSkillModifierValues(override);
+    const budget = SKILL_AGE_POINT_BUDGET[getCharmancerAge()] ?? 0;
+    const spent = SKILL_ATTRS.reduce((sum, attr) => sum + modifiers[attr], 0);
+    const remaining = budget - spent;
+    setAttrs({ skill_points_remaining: remaining, skills_valid: remaining === 0 ? 1 : 0 }, { silent: true });
+};
+
+on('mancerchange:age', () => updateSkillPointsRemaining());
+
+SKILL_ATTRS.forEach(attr => {
+    on(`mancerchange:${attr}`, eventInfo => {
+        updateSkillPointsRemaining({ [attr]: parseInt(eventInfo.newValue) });
+    });
+});
+
 const setupCharacter = (data) => {
     const physical = data?.physical?.values;
     const traits = getTraitValues();
     const attributeModifiers = getAttributeModifierValues();
+    const skillModifiers = getSkillModifierValues();
     const age = physical?.age || 'adult';
     const budget = AGE_POINT_BUDGET[age] ?? 0;
     const spent = ATTRIBUTE_NAMES.reduce((sum, name) => sum + attributeModifiers[name], 0);
@@ -540,12 +733,20 @@ const setupCharacter = (data) => {
         startCharactermancer("attributes");
         return;
     }
+    const skillBudget = SKILL_AGE_POINT_BUDGET[age] ?? 0;
+    const skillSpent = SKILL_ATTRS.reduce((sum, attr) => sum + skillModifiers[attr], 0);
+    if (skillBudget - skillSpent !== 0) {
+        setAttrs({ skill_points_remaining: skillBudget - skillSpent }, { silent: true });
+        startCharactermancer("skills");
+        return;
+    }
     const updateAttrs = {
         age,
         height: physical.height,
         weight: physical.weight,
         ...traits,
         ...Object.fromEntries(ATTRIBUTE_NAMES.map(name => [`${name}_modifier`, attributeModifiers[name]])),
+        ...Object.fromEntries(SKILL_ATTRS.map(attr => [`${attr}_modifier`, skillModifiers[attr]])),
     };
     setAttrs(updateAttrs);
     deleteCharmancerData();
