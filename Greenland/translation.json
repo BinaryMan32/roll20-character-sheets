@@ -1,5 +1,10 @@
 {
   "charmancer-launch": "Launch Charactermancer",
+  "charmancer-heading-intro": "Welcome",
+  "charmancer-heading-physical": "Physical Appearance",
+  "charmancer-heading-attributes": "Attributes",
+  "charmancer-heading-traits": "Traits",
+  "charmancer-heading-skills": "Skills",
   "charmancer-step1-intro": "Welcome to the Greenland charactermancer.",
   "charmancer-step2-physical": "Customize your physical appearance.",
   "charmancer-step3-traits": "Assign a number of d6 dice to your character traits. A trait rolls 1, 2, or 3 dice, and each number must be used once.",

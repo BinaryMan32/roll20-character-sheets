@@ -170,6 +170,10 @@
   text-align: center;
 }
 
+.gl-charmancer-heading {
+  margin: 0 0 10px 0;
+}
+
 .gl-charmancer-validity-gate {
   display: none;
 }
