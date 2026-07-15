@@ -18,8 +18,7 @@
 
             <div class="info-field">
                 <label>Age:
-                    <select name="attr_age">
-                        <option value="">Select Age</option>
+                    <select name="attr_age" class="gl-readonly-select" tabindex="-1">
                         <option value="child">Child</option>
                         <option value="young_adult">Young Adult</option>
                         <option value="adult" selected>Adult</option>
@@ -64,6 +63,54 @@
                 <button type="roll" name="roll_memory" value="&amp;{template:default} {{name=Trait: Toxin Resistance}} {{Result=[[ [[@{trait_toxin_resistance} + ?{Additional Dice|0}]]d6kh1]]}}" data-i18n="trait-roll">Roll</button>
             </div>
         </div>
+
+        <div class="gl-attributes-section">
+            <h3 data-i18n="attributes-heading">Attributes</h3>
+            <div class="gl-attribute-display">
+                <label data-i18n="attribute-strength">Strength</label>
+                <select name="attr_strength_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                    <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                    <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                    <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                    <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+                </select>
+                <button type="action" name="act_roll_strength" data-i18n="attribute-roll">Roll</button>
+            </div>
+            <div class="gl-attribute-display">
+                <label data-i18n="attribute-agility">Agility</label>
+                <select name="attr_agility_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                    <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                    <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                    <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                    <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+                </select>
+                <button type="action" name="act_roll_agility" data-i18n="attribute-roll">Roll</button>
+            </div>
+            <div class="gl-attribute-display">
+                <label data-i18n="attribute-endurance">Endurance</label>
+                <select name="attr_endurance_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                    <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                    <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                    <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                    <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+                </select>
+                <button type="action" name="act_roll_endurance" data-i18n="attribute-roll">Roll</button>
+            </div>
+            <div class="gl-attribute-display">
+                <label data-i18n="attribute-awareness">Awareness</label>
+                <select name="attr_awareness_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                    <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                    <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                    <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                    <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+                </select>
+                <button type="action" name="act_roll_awareness" data-i18n="attribute-roll">Roll</button>
+            </div>
+        </div>
     </div>
 </div>
 <!-- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates -->
@@ -86,6 +133,32 @@
             {{#rollBetween() magnitude 5 5}}0.2 m{{/rollBetween() magnitude 5 5}}
             {{#rollBetween() magnitude 6 6}}0.3 m{{/rollBetween() magnitude 6 6}}
             )
+        </div>
+    </div>
+</rolltemplate>
+<rolltemplate class="sheet-rolltemplate-attribute-roll">
+    <div class="sheet-template-container">
+        <div class="sheet-template-header">{{name}}</div>
+        <div class="sheet-template-row">
+            Rolling {{dice}}d6
+            {{#rollGreater() advantage 0}}
+            with advantage +{{advantage}}
+            {{/rollGreater() advantage 0}}
+            {{#rollLess() advantage 0}}
+            with disadvantage {{advantage}}
+            {{/rollLess() advantage 0}}
+        </div>
+        <div class="sheet-template-row sheet-template-result">
+            <span>Result: </span>
+            {{#rollGreater() advantage 0}}
+            {{high}}
+            {{/rollGreater() advantage 0}}
+            {{#rollTotal() advantage 0}}
+            {{high}}
+            {{/rollTotal() advantage 0}}
+            {{#rollLess() advantage 0}}
+            {{low}}
+            {{/rollLess() advantage 0}}
         </div>
     </div>
 </rolltemplate>
@@ -124,10 +197,96 @@
                 <input type="number" name="comp_weight" step="5" value="55" />
             </label>
         </div>
+        <div class="info-field">
+            <label>Age:
+                <select name="comp_age">
+                    <option value="child">Child</option>
+                    <option value="young_adult">Young Adult</option>
+                    <option value="adult" selected>Adult</option>
+                    <option value="middle_aged">Middle Aged</option>
+                    <option value="venerable">Venerable</option>
+                    <option value="elderly">Elderly</option>
+                    <option value="ancient">Ancient</option>
+                </select>
+            </label>
+        </div>
     </div>
 
     <div class="gl-charmancer-pagecontrol">
       <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="intro">next</button>
+      <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
+      <button class="gl-charmancer-pagecontrol-next" data-i18n="charmancer-next" type="submit" value="attributes">next</button>
+    </div>
+  </div>
+</charmancer>
+<charmancer class="sheet-charmancer-attributes">
+  <div class="gl-charmancer-wrapper">
+    <div>
+        <p class="gl-charmancer-description" data-i18n="charmancer-step-attributes"></p>
+        <div class="gl-attribute-row">
+            <label data-i18n="attribute-strength">Strength</label>
+            <select name="comp_strength">
+                <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+            </select>
+            <span class="gl-attribute-cap-label" data-i18n="attribute-max-label">Max:</span>
+            <select name="comp_strength_cap" class="gl-readonly-select" tabindex="-1">
+                <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                <option value="-1" selected data-i18n="attribute-level-weak">Weak</option>
+                <option value="0" data-i18n="attribute-level-average">Average</option>
+                <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+            </select>
+        </div>
+        <div class="gl-attribute-row">
+            <label data-i18n="attribute-agility">Agility</label>
+            <select name="comp_agility">
+                <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+            </select>
+            <span class="gl-attribute-cap-label" data-i18n="attribute-max-label">Max:</span>
+            <select name="comp_agility_cap" class="gl-readonly-select" tabindex="-1">
+                <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                <option value="0" data-i18n="attribute-level-average">Average</option>
+                <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                <option value="2" selected data-i18n="attribute-level-legendary">Legendary</option>
+            </select>
+        </div>
+        <div class="gl-attribute-row">
+            <label data-i18n="attribute-endurance">Endurance</label>
+            <select name="comp_endurance">
+                <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+            </select>
+        </div>
+        <div class="gl-attribute-row">
+            <label data-i18n="attribute-awareness">Awareness</label>
+            <select name="comp_awareness">
+                <option value="-2" data-i18n="attribute-level-frail">Frail</option>
+                <option value="-1" data-i18n="attribute-level-weak">Weak</option>
+                <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                <option value="1" data-i18n="attribute-level-exceptional">Exceptional</option>
+                <option value="2" data-i18n="attribute-level-legendary">Legendary</option>
+            </select>
+        </div>
+        <div class="gl-attribute-summary">
+            <label data-i18n="attribute-points-remaining">Points Remaining</label>
+            <input type="text" name="comp_points_remaining" readonly value="0">
+        </div>
+    </div>
+    <input type="checkbox" name="comp_attributes_valid" class="gl-charmancer-validity-gate" value="1" checked>
+    <div class="gl-charmancer-pagecontrol">
+      <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="physical">previous</button>
       <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
       <button class="gl-charmancer-pagecontrol-next" data-i18n="charmancer-next" type="submit" value="traits">next</button>
     </div>
@@ -166,7 +325,7 @@
         </div>
     </div>
     <div class="gl-charmancer-pagecontrol">
-      <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="physical">previous</button>
+      <button class="gl-charmancer-pagecontrol-previous" data-i18n="charmancer-previous" type="back" value="attributes">previous</button>
       <button class="gl-charmancer-pagecontrol-cancel" data-i18n="charmancer-cancel" type="cancel">cancel</button>
       <button class="gl-charmancer-pagecontrol-finish" data-i18n="charmancer-finish" type="finish" value="newcharacter">finish</button>
     </div>
@@ -230,6 +389,115 @@ on("mancerchange:weight", (eventInfo) => {
     }
 });
 
+const ATTRIBUTE_NAMES = ['strength', 'agility', 'endurance', 'awareness'];
+const ATTRIBUTE_DEFAULTS = Object.fromEntries(ATTRIBUTE_NAMES.map(name => [name, 0]));
+
+const AGE_POINT_BUDGET = {
+    child: -6, young_adult: -2, adult: 0, middle_aged: 0,
+    venerable: 0, elderly: -2, ancient: -6,
+};
+
+// Minimum body weight (kg) tiers, sorted highest to lowest, mapping to the
+// highest attribute modifier allowed for strength/agility at that weight.
+const WEIGHT_ATTRIBUTE_CAPS = [
+    { minWeight: 200, maxStrength: 2, maxAgility: -2 },
+    { minWeight: 175, maxStrength: 2, maxAgility: -1 },
+    { minWeight: 135, maxStrength: 2, maxAgility: 0 },
+    { minWeight: 100, maxStrength: 1, maxAgility: 1 },
+    { minWeight: 60, maxStrength: 0, maxAgility: 2 },
+    { minWeight: 40, maxStrength: -1, maxAgility: 2 },
+    { minWeight: 0, maxStrength: -2, maxAgility: 1 },
+];
+
+const getWeightCaps = (weight) => WEIGHT_ATTRIBUTE_CAPS.find(tier => weight >= tier.minWeight)
+    || WEIGHT_ATTRIBUTE_CAPS[WEIGHT_ATTRIBUTE_CAPS.length - 1];
+
+const ATTRIBUTE_LABELS = { strength: 'Strength', agility: 'Agility', endurance: 'Endurance', awareness: 'Awareness' };
+
+const rollAttribute = (name) => {
+    const rollString = `&{template:attribute-roll} {{name=${ATTRIBUTE_LABELS[name]}}} `
+        + `{{high=[[ [[1+abs([[@{${name}_modifier} + ?{Modifier|0}]])]]d6kh1]]}} `
+        + `{{low=[[ [[1+abs([[@{${name}_modifier} + ?{Modifier|0}]])]]d6kl1]]}} `
+        + `{{advantage=$[[0]]}} `
+        + `{{dice=$[[1]]}}`;
+    startRoll(rollString, results => {
+        finishRoll(results.rollId, {});
+    });
+};
+
+ATTRIBUTE_NAMES.forEach(name => {
+    on(`clicked:roll_${name}`, () => rollAttribute(name));
+});
+
+const getCharmancerPhysicalValues = () => {
+    const charmancerData = getCharmancerData();
+    return (charmancerData && charmancerData.physical && charmancerData.physical.values) || {};
+};
+
+const getCharmancerWeight = () => parseInt(getCharmancerPhysicalValues().weight) || WEIGHT_MIN;
+
+const getCharmancerAge = () => getCharmancerPhysicalValues().age || 'adult';
+
+const getAttributeModifierValues = (override) => {
+    override = override || {};
+    const charmancerData = getCharmancerData();
+    const stored = (charmancerData && charmancerData.attributes && charmancerData.attributes.values) || {};
+    const values = Object.fromEntries(ATTRIBUTE_NAMES.map(name => {
+        const overrideValue = parseInt(override[name]);
+        if (!Number.isNaN(overrideValue)) return [name, overrideValue];
+        const storedValue = parseInt(stored[name]);
+        if (!Number.isNaN(storedValue)) return [name, storedValue];
+        return [name, ATTRIBUTE_DEFAULTS[name]];
+    }));
+    // Defends against a value (e.g. the untouched "Average" default) exceeding the
+    // current weight-based cap before any mancerchange event has had a chance to enforce it.
+    const caps = getWeightCaps(getCharmancerWeight());
+    values.strength = Math.min(values.strength, caps.maxStrength);
+    values.agility = Math.min(values.agility, caps.maxAgility);
+    return values;
+};
+
+const updatePointsRemaining = (override) => {
+    const modifiers = getAttributeModifierValues(override);
+    const budget = AGE_POINT_BUDGET[getCharmancerAge()] ?? 0;
+    const spent = ATTRIBUTE_NAMES.reduce((sum, name) => sum + modifiers[name], 0);
+    const remaining = budget - spent;
+    setAttrs({ points_remaining: remaining, attributes_valid: remaining === 0 ? 1 : 0 }, { silent: true });
+};
+
+on('mancerchange:age', () => updatePointsRemaining());
+
+const enforceAttributeCap = (name, eventInfo) => {
+    const newValue = parseInt(eventInfo.newValue);
+    const caps = getWeightCaps(getCharmancerWeight());
+    let capped = newValue;
+    if (name === 'strength') {
+        capped = Math.min(newValue, caps.maxStrength);
+    } else if (name === 'agility') {
+        capped = Math.min(newValue, caps.maxAgility);
+    }
+    if (capped !== newValue) {
+        setAttrs({ [name]: capped }, { silent: true });
+    }
+    updatePointsRemaining({ [name]: capped });
+};
+
+ATTRIBUTE_NAMES.forEach(name => {
+    on(`mancerchange:${name}`, eventInfo => enforceAttributeCap(name, eventInfo));
+});
+
+on('mancerchange:weight', eventInfo => {
+    const caps = getWeightCaps(parseInt(eventInfo.newValue) || WEIGHT_MIN);
+    const modifiers = getAttributeModifierValues();
+    const cappedStrength = Math.min(modifiers.strength, caps.maxStrength);
+    const cappedAgility = Math.min(modifiers.agility, caps.maxAgility);
+    const updates = { strength_cap: caps.maxStrength, agility_cap: caps.maxAgility };
+    if (cappedStrength !== modifiers.strength) updates.strength = cappedStrength;
+    if (cappedAgility !== modifiers.agility) updates.agility = cappedAgility;
+    setAttrs(updates, { silent: true });
+    updatePointsRemaining({ strength: cappedStrength, agility: cappedAgility });
+});
+
 const TRAIT_ATTRS = ['trait_memory', 'trait_toxin_resistance', 'trait_disease_resistance'];
 const TRAIT_DEFAULTS = { trait_memory: 1, trait_toxin_resistance: 2, trait_disease_resistance: 3 };
 
@@ -263,10 +531,21 @@ TRAIT_ATTRS.forEach(attr => {
 const setupCharacter = (data) => {
     const physical = data?.physical?.values;
     const traits = getTraitValues();
+    const attributeModifiers = getAttributeModifierValues();
+    const age = physical?.age || 'adult';
+    const budget = AGE_POINT_BUDGET[age] ?? 0;
+    const spent = ATTRIBUTE_NAMES.reduce((sum, name) => sum + attributeModifiers[name], 0);
+    if (budget - spent !== 0) {
+        setAttrs({ points_remaining: budget - spent }, { silent: true });
+        startCharactermancer("attributes");
+        return;
+    }
     const updateAttrs = {
+        age,
         height: physical.height,
         weight: physical.weight,
         ...traits,
+        ...Object.fromEntries(ATTRIBUTE_NAMES.map(name => [`${name}_modifier`, attributeModifiers[name]])),
     };
     setAttrs(updateAttrs);
     deleteCharmancerData();
