@@ -170,6 +170,31 @@
   text-align: center;
 }
 
+.gl-counters-section {
+  margin-top: 15px;
+}
+
+.gl-counter-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.gl-counter-display label {
+  flex: 1;
+  font-weight: bold;
+}
+
+.gl-counter-display input {
+  width: 40px;
+  text-align: center;
+}
+
+.gl-counter-max-sep {
+  font-weight: bold;
+}
+
 .gl-charmancer-heading {
   margin: 0 0 10px 0;
 }

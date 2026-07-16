@@ -170,6 +170,23 @@
                 <button type="action" name="act_roll_skill_survival" data-i18n="skill-roll">Roll</button>
             </div>
         </div>
+
+        <div class="gl-counters-section">
+            <h3 data-i18n="counters-heading">Counters</h3>
+            <div class="gl-counter-display">
+                <label data-i18n="counter-stamina">Stamina</label>
+                <input type="number" name="attr_stamina" min="0" max="@{stamina_max}" value="6">
+                <span class="gl-counter-max-sep">/</span>
+                <input type="number" name="attr_stamina_max" value="6" readonly tabindex="-1">
+            </div>
+            <div class="gl-counter-display">
+                <label data-i18n="counter-reactions">Reactions</label>
+                <input type="number" name="attr_reactions" min="0" max="@{reactions_max}" value="3">
+                <span class="gl-counter-max-sep">/</span>
+                <input type="number" name="attr_reactions_max" value="3" readonly tabindex="-1">
+            </div>
+            <button type="action" name="act_next_turn" data-i18n="counter-next-turn">Next Turn</button>
+        </div>
     </div>
 </div>
 <!-- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates -->
@@ -761,4 +778,50 @@ on("mancerfinish:newcharacter", eventInfo => setupCharacter(eventInfo.data));
 
 // event handlers
 on("clicked:launch_charmancer", eventInfo => startCharactermancer("intro"));
+
+const STAMINA_BASE = 6;
+const REACTIONS_BASE = 3;
+
+const updateStaminaMax = (enduranceModifier) => {
+    getAttrs(['stamina'], values => {
+        const staminaMax = STAMINA_BASE + 2 * enduranceModifier;
+        const stamina = parseInt(values.stamina);
+        const updates = { stamina_max: staminaMax };
+        if (Number.isNaN(stamina) || stamina > staminaMax) {
+            updates.stamina = staminaMax;
+        }
+        setAttrs(updates);
+    });
+};
+
+const updateReactionsMax = (awarenessModifier) => {
+    getAttrs(['reactions'], values => {
+        const reactionsMax = REACTIONS_BASE + 1 * awarenessModifier;
+        const reactions = parseInt(values.reactions);
+        const updates = { reactions_max: reactionsMax };
+        if (Number.isNaN(reactions) || reactions > reactionsMax) {
+            updates.reactions = reactionsMax;
+        }
+        setAttrs(updates);
+    });
+};
+
+on('change:endurance_modifier', eventInfo => updateStaminaMax(parseInt(eventInfo.newValue) || 0));
+on('change:awareness_modifier', eventInfo => updateReactionsMax(parseInt(eventInfo.newValue) || 0));
+
+on('sheet:opened', () => {
+    getAttrs(['endurance_modifier', 'awareness_modifier'], values => {
+        updateStaminaMax(parseInt(values.endurance_modifier) || 0);
+        updateReactionsMax(parseInt(values.awareness_modifier) || 0);
+    });
+});
+
+on('clicked:next_turn', () => {
+    getAttrs(['stamina_max', 'reactions_max'], values => {
+        setAttrs({
+            stamina: values.stamina_max,
+            reactions: values.reactions_max,
+        });
+    });
+});
 </script>
