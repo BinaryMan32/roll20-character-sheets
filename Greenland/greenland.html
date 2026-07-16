@@ -169,6 +169,42 @@
                 </select>
                 <button type="action" name="act_roll_skill_survival" data-i18n="skill-roll">Roll</button>
             </div>
+
+            <h4 data-i18n="skills-defensive-heading">Defensive Skills</h4>
+            <p class="gl-skill-desc" data-i18n="skills-defensive-cost-note">Requires 1 Stamina and 1 Reaction, unless noted otherwise.</p>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-defensive-parry">Parry</label>
+                <select name="attr_skill_defensive_parry_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_defensive_parry" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-defensive-deflect">Deflect</label>
+                <select name="attr_skill_defensive_deflect_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_defensive_deflect" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-defensive-dodge">Dodge (2 Stamina)</label>
+                <select name="attr_skill_defensive_dodge_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_defensive_dodge" data-i18n="skill-roll">Roll</button>
+            </div>
         </div>
 
         <div class="gl-counters-section">
@@ -471,6 +507,41 @@
                 <option value="2" data-i18n="skill-level-plus-2">Master</option>
             </select>
         </div>
+        <h3 data-i18n="skills-defensive-heading">Defensive Skills</h3>
+        <p class="gl-charmancer-description" data-i18n="skills-defensive-desc"></p>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-defensive-parry">Parry</label>
+            <p class="gl-skill-desc" data-i18n="skill-defensive-parry-desc"></p>
+            <select name="comp_skill_defensive_parry">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-defensive-deflect">Deflect</label>
+            <p class="gl-skill-desc" data-i18n="skill-defensive-deflect-desc"></p>
+            <select name="comp_skill_defensive_deflect">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-defensive-dodge">Dodge</label>
+            <p class="gl-skill-desc" data-i18n="skill-defensive-dodge-desc"></p>
+            <select name="comp_skill_defensive_dodge">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
         <div class="gl-skill-summary">
             <label data-i18n="skill-points-remaining">Points Remaining</label>
             <input type="text" name="comp_skill_points_remaining" readonly value="0">
@@ -681,7 +752,9 @@ TRAIT_ATTRS.forEach(attr => {
     on(`mancerchange:${attr}`, eventInfo => enforceTrait(attr, eventInfo));
 });
 
-const SKILL_ATTRS = ['skill_legerdemain', 'skill_linguistics', 'skill_logic', 'skill_mechanics', 'skill_survival'];
+const REGULAR_SKILL_ATTRS = ['skill_legerdemain', 'skill_linguistics', 'skill_logic', 'skill_mechanics', 'skill_survival'];
+const DEFENSIVE_SKILL_ATTRS = ['skill_defensive_parry', 'skill_defensive_deflect', 'skill_defensive_dodge'];
+const SKILL_ATTRS = [...REGULAR_SKILL_ATTRS, ...DEFENSIVE_SKILL_ATTRS];
 const SKILL_DEFAULTS = Object.fromEntries(SKILL_ATTRS.map(attr => [attr, 0]));
 const SKILL_LABELS = {
     skill_legerdemain: 'Legerdemain',
@@ -689,16 +762,27 @@ const SKILL_LABELS = {
     skill_logic: 'Logic',
     skill_mechanics: 'Mechanics',
     skill_survival: 'Survival',
+    skill_defensive_parry: 'Parry',
+    skill_defensive_deflect: 'Deflect',
+    skill_defensive_dodge: 'Dodge',
+};
+
+// Cost to attempt each defensive skill: 1 reaction plus the listed stamina.
+const DEFENSIVE_SKILL_COSTS = {
+    skill_defensive_parry: { stamina: 1, reactions: 1 },
+    skill_defensive_deflect: { stamina: 1, reactions: 1 },
+    skill_defensive_dodge: { stamina: 2, reactions: 1 },
 };
 
 // Mirrors AGE_POINT_BUDGET but tracked separately so it can be tuned
-// independently as more skill groups are added.
+// independently as more skill groups are added. Doubled relative to
+// AGE_POINT_BUDGET now that there are twice as many skills to spread points across.
 const SKILL_AGE_POINT_BUDGET = {
-    child: -6, young_adult: -2, adult: 0, middle_aged: 0,
-    venerable: 0, elderly: -2, ancient: -6,
+    child: -12, young_adult: -4, adult: 0, middle_aged: 0,
+    venerable: 0, elderly: -4, ancient: -12,
 };
 
-const rollSkill = (skillAttr) => {
+const rollSkill = (skillAttr, onRolled) => {
     const rollString = `&{template:attribute-roll} {{name=${SKILL_LABELS[skillAttr]}}} `
         + `{{high=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kh1]]}} `
         + `{{low=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kl1]]}} `
@@ -706,11 +790,49 @@ const rollSkill = (skillAttr) => {
         + `{{dice=$[[1]]}}`;
     startRoll(rollString, results => {
         finishRoll(results.rollId, {});
+        if (onRolled) onRolled();
     });
 };
 
-SKILL_ATTRS.forEach(skillAttr => {
+REGULAR_SKILL_ATTRS.forEach(skillAttr => {
     on(`clicked:roll_${skillAttr}`, () => rollSkill(skillAttr));
+});
+
+const notify = (name, result) => {
+    const rollString = `&{template:default} {{name=${name}}} {{Result=${result}}}`;
+    startRoll(rollString, results => {
+        finishRoll(results.rollId, {});
+    });
+};
+
+const rollDefensiveSkill = (skillAttr) => {
+    const cost = DEFENSIVE_SKILL_COSTS[skillAttr];
+    getAttrs(['stamina', 'reactions'], values => {
+        const stamina = parseInt(values.stamina) || 0;
+        const reactions = parseInt(values.reactions) || 0;
+        if (reactions < cost.reactions) {
+            notify(SKILL_LABELS[skillAttr], `Not enough Reactions (need ${cost.reactions}).`);
+            return;
+        }
+        if (stamina < cost.stamina) {
+            notify(SKILL_LABELS[skillAttr], `Not enough Stamina (need ${cost.stamina}).`);
+            return;
+        }
+        // Only spend the resources once the roll actually completes - if the
+        // player cancels the Modifier prompt, startRoll's callback never fires.
+        rollSkill(skillAttr, () => {
+            getAttrs(['stamina', 'reactions'], current => {
+                setAttrs({
+                    stamina: (parseInt(current.stamina) || 0) - cost.stamina,
+                    reactions: (parseInt(current.reactions) || 0) - cost.reactions,
+                });
+            });
+        });
+    });
+};
+
+DEFENSIVE_SKILL_ATTRS.forEach(skillAttr => {
+    on(`clicked:roll_${skillAttr}`, () => rollDefensiveSkill(skillAttr));
 });
 
 const getSkillModifierValues = (override) => {
