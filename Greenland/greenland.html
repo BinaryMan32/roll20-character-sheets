@@ -211,9 +211,11 @@
             <h3 data-i18n="counters-heading">Counters</h3>
             <div class="gl-counter-display">
                 <label data-i18n="counter-stamina">Stamina</label>
-                <input type="number" name="attr_stamina" min="0" max="@{stamina_max}" value="6">
+                <input type="number" name="attr_stamina" max="@{stamina_round}">
                 <span class="gl-counter-max-sep">/</span>
-                <input type="number" name="attr_stamina_max" value="6" readonly tabindex="-1">
+                <input type="number" name="attr_stamina_round" min="0" max="@{stamina_max}">
+                <span class="gl-counter-max-sep">/</span>
+                <input type="number" name="attr_stamina_max" readonly tabindex="-1">
             </div>
             <div class="gl-counter-display">
                 <label data-i18n="counter-reactions">Reactions</label>
@@ -811,11 +813,11 @@ const rollDefensiveSkill = (skillAttr) => {
         const stamina = parseInt(values.stamina) || 0;
         const reactions = parseInt(values.reactions) || 0;
         if (reactions < cost.reactions) {
-            notify(SKILL_LABELS[skillAttr], `Not enough Reactions (need ${cost.reactions}).`);
+            notify(SKILL_LABELS[skillAttr], `Not enough Reactions (need ${cost.reactions})`);
             return;
         }
-        if (stamina < cost.stamina) {
-            notify(SKILL_LABELS[skillAttr], `Not enough Stamina (need ${cost.stamina}).`);
+        if (stamina <= 0) {
+            notify(SKILL_LABELS[skillAttr], "Not enough Stamina");
             return;
         }
         // Only spend the resources once the roll actually completes - if the
@@ -905,13 +907,16 @@ const STAMINA_BASE = 6;
 const REACTIONS_BASE = 3;
 
 const updateStaminaMax = (enduranceModifier) => {
-    getAttrs(['stamina'], values => {
+    const STAMINA_FIELDS = ['stamina', 'stamina_round'];
+    getAttrs(STAMINA_FIELDS, values => {
         const staminaMax = STAMINA_BASE + 2 * enduranceModifier;
-        const stamina = parseInt(values.stamina);
         const updates = { stamina_max: staminaMax };
-        if (Number.isNaN(stamina) || stamina > staminaMax) {
-            updates.stamina = staminaMax;
-        }
+        STAMINA_FIELDS.forEach(field => {
+            const value = parseInt(values[field]);
+            if (Number.isNaN(value) || value > staminaMax) {
+                updates[field] = staminaMax;
+            }
+        });
         setAttrs(updates);
     });
 };
@@ -939,9 +944,12 @@ on('sheet:opened', () => {
 });
 
 on('clicked:next_turn', () => {
-    getAttrs(['stamina_max', 'reactions_max'], values => {
+    getAttrs(['stamina', 'stamina_round', 'stamina_max', 'reactions_max'], values => {
+        const exhausted_by = Math.max(-values.stamina, 0);
+        const stamina = exhausted_by > 0 ? Math.max(values.stamina_round - exhausted_by, 0) : values.stamina_max;
         setAttrs({
-            stamina: values.stamina_max,
+            stamina: stamina,
+            stamina_round: stamina,
             reactions: values.reactions_max,
         });
     });
