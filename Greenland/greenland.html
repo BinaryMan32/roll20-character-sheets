@@ -683,10 +683,20 @@ const getAttributeModifierValues = (override) => {
     return values;
 };
 
+const modifierPoints = (mod) => {
+    if (mod < -1) {
+        return -3;
+    } else if (mod > 1) {
+        return 3;
+    } else {
+        return mod;
+    }
+};
+
 const updatePointsRemaining = (override) => {
     const modifiers = getAttributeModifierValues(override);
     const budget = AGE_POINT_BUDGET[getCharmancerAge()] ?? 0;
-    const spent = ATTRIBUTE_NAMES.reduce((sum, name) => sum + modifiers[name], 0);
+    const spent = ATTRIBUTE_NAMES.reduce((sum, name) => sum + modifierPoints(modifiers[name]), 0);
     const remaining = budget - spent;
     setAttrs({ points_remaining: remaining, attributes_valid: remaining === 0 ? 1 : 0 }, { silent: true });
 };
@@ -868,7 +878,7 @@ const getSkillModifierValues = (override) => {
 const updateSkillPointsRemaining = (override) => {
     const modifiers = getSkillModifierValues(override);
     const budget = SKILL_AGE_POINT_BUDGET[getCharmancerAge()] ?? 0;
-    const spent = SKILL_ATTRS.reduce((sum, attr) => sum + modifiers[attr], 0);
+    const spent = SKILL_ATTRS.reduce((sum, attr) => sum + modifierPoints(modifiers[attr]), 0);
     const remaining = budget - spent;
     setAttrs({ skill_points_remaining: remaining, skills_valid: remaining === 0 ? 1 : 0 }, { silent: true });
 };
@@ -888,14 +898,14 @@ const setupCharacter = (data) => {
     const skillModifiers = getSkillModifierValues();
     const age = physical?.age || 'adult';
     const budget = AGE_POINT_BUDGET[age] ?? 0;
-    const spent = ATTRIBUTE_NAMES.reduce((sum, name) => sum + attributeModifiers[name], 0);
+    const spent = ATTRIBUTE_NAMES.reduce((sum, name) => sum + modifierPoints(attributeModifiers[name]), 0);
     if (budget - spent !== 0) {
         setAttrs({ points_remaining: budget - spent }, { silent: true });
         startCharactermancer("attributes");
         return;
     }
     const skillBudget = SKILL_AGE_POINT_BUDGET[age] ?? 0;
-    const skillSpent = SKILL_ATTRS.reduce((sum, attr) => sum + skillModifiers[attr], 0);
+    const skillSpent = SKILL_ATTRS.reduce((sum, attr) => sum + modifierPoints(skillModifiers[attr]), 0);
     if (skillBudget - skillSpent !== 0) {
         setAttrs({ skill_points_remaining: skillBudget - skillSpent }, { silent: true });
         startCharactermancer("skills");
