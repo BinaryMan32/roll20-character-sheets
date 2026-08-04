@@ -784,20 +784,35 @@ const SKILL_AGE_POINT_BUDGET = {
     venerable: 0, elderly: -4, ancient: -12,
 };
 
-const rollSkill = (skillAttr, onRolled) => {
-    const rollString = `&{template:attribute-roll} {{name=${SKILL_LABELS[skillAttr]}}} `
+const staminaOptions = (baseStaminaCost) => {
+    let plusOptions = Array.from({ length: 4 }, (_, offset) => {
+        let stamina = offset + baseStaminaCost;
+        return `${stamina} (+${offset}), ${stamina}`
+    });
+    let minusOptions = Array.from({ length: baseStaminaCost }, (_, stamina) => {
+        let offset = stamina - baseStaminaCost;
+        return `${stamina} (${offset}), ${stamina}`
+    });
+    return [...plusOptions, ...minusOptions.reverse()].join('|');
+};
+
+const rollSkill = (skillAttr, staminaCost, onRolled) => {
+    let rollString = `&{template:attribute-roll} {{name=${SKILL_LABELS[skillAttr]}}} `
         + `{{high=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kh1]]}} `
         + `{{low=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kl1]]}} `
         + `{{advantage=$[[0]]}} `
         + `{{dice=$[[1]]}}`;
+    if (staminaCost !== null) {
+        rollString += ` {{stamina=[[?{Stamina|${staminaOptions(staminaCost)}}]]}}`;
+    }
     startRoll(rollString, results => {
         finishRoll(results.rollId, {});
-        if (onRolled) onRolled();
+        if (onRolled) onRolled(results.results);
     });
 };
 
 REGULAR_SKILL_ATTRS.forEach(skillAttr => {
-    on(`clicked:roll_${skillAttr}`, () => rollSkill(skillAttr));
+    on(`clicked:roll_${skillAttr}`, () => rollSkill(skillAttr, null));
 });
 
 const notify = (name, result) => {
@@ -822,10 +837,10 @@ const rollDefensiveSkill = (skillAttr) => {
         }
         // Only spend the resources once the roll actually completes - if the
         // player cancels the Modifier prompt, startRoll's callback never fires.
-        rollSkill(skillAttr, () => {
+        rollSkill(skillAttr, cost.stamina, (results) => {
             getAttrs(['stamina', 'reactions'], current => {
                 setAttrs({
-                    stamina: (parseInt(current.stamina) || 0) - cost.stamina,
+                    stamina: (parseInt(current.stamina) || 0) - results.stamina.result,
                     reactions: (parseInt(current.reactions) || 0) - cost.reactions,
                 });
             });
