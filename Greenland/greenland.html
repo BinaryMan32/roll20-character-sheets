@@ -198,6 +198,53 @@
                 </select>
                 <button type="action" name="act_roll_skill_defensive_dodge" data-i18n="skill-roll">Roll</button>
             </div>
+
+            <h4 data-i18n="skills-fighting-heading">Fighting Styles</h4>
+            <p class="gl-skill-desc" data-i18n="skills-fighting-cost-note">Requires 1 Stamina.</p>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-fighting-unarmed-melee">Unarmed Melee</label>
+                <select name="attr_skill_fighting_unarmed_melee_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_fighting_unarmed_melee" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-fighting-armed-melee">Armed Melee</label>
+                <select name="attr_skill_fighting_armed_melee_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_fighting_armed_melee" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-fighting-ranged-shot">Ranged Shot</label>
+                <select name="attr_skill_fighting_ranged_shot_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_fighting_ranged_shot" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-fighting-ranged-thrown">Ranged Thrown</label>
+                <select name="attr_skill_fighting_ranged_thrown_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_fighting_ranged_thrown" data-i18n="skill-roll">Roll</button>
+            </div>
         </div>
 
         <div class="gl-counters-section">
@@ -537,6 +584,52 @@
                 <option value="2" data-i18n="skill-level-plus-2">Master</option>
             </select>
         </div>
+        <h3 data-i18n="skills-fighting-heading">Fighting Styles</h3>
+        <p class="gl-charmancer-description" data-i18n="skills-fighting-desc"></p>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-fighting-unarmed-melee">Unarmed Melee</label>
+            <p class="gl-skill-desc" data-i18n="skill-fighting-unarmed-melee-desc"></p>
+            <select name="comp_skill_fighting_unarmed_melee">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-fighting-armed-melee">Armed Melee</label>
+            <p class="gl-skill-desc" data-i18n="skill-fighting-armed-melee-desc"></p>
+            <select name="comp_skill_fighting_armed_melee">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-fighting-ranged-shot">Ranged Shot</label>
+            <p class="gl-skill-desc" data-i18n="skill-fighting-ranged-shot-desc"></p>
+            <select name="comp_skill_fighting_ranged_shot">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-fighting-ranged-thrown">Ranged Thrown</label>
+            <p class="gl-skill-desc" data-i18n="skill-fighting-ranged-thrown-desc"></p>
+            <select name="comp_skill_fighting_ranged_thrown">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
         <div class="gl-skill-summary">
             <label data-i18n="skill-points-remaining">Points Remaining</label>
             <input type="text" name="comp_skill_points_remaining" readonly value="0">
@@ -759,7 +852,8 @@ TRAIT_ATTRS.forEach(attr => {
 
 const REGULAR_SKILL_ATTRS = ['skill_legerdemain', 'skill_linguistics', 'skill_logic', 'skill_mechanics', 'skill_survival'];
 const DEFENSIVE_SKILL_ATTRS = ['skill_defensive_parry', 'skill_defensive_deflect', 'skill_defensive_dodge'];
-const SKILL_ATTRS = [...REGULAR_SKILL_ATTRS, ...DEFENSIVE_SKILL_ATTRS];
+const FIGHTING_SKILL_ATTRS = ['skill_fighting_unarmed_melee', 'skill_fighting_armed_melee', 'skill_fighting_ranged_shot', 'skill_fighting_ranged_thrown'];
+const SKILL_ATTRS = [...REGULAR_SKILL_ATTRS, ...DEFENSIVE_SKILL_ATTRS, ...FIGHTING_SKILL_ATTRS];
 const SKILL_DEFAULTS = Object.fromEntries(SKILL_ATTRS.map(attr => [attr, 0]));
 const SKILL_LABELS = {
     skill_legerdemain: 'Legerdemain',
@@ -770,6 +864,10 @@ const SKILL_LABELS = {
     skill_defensive_parry: 'Parry',
     skill_defensive_deflect: 'Deflect',
     skill_defensive_dodge: 'Dodge',
+    skill_fighting_unarmed_melee: 'Unarmed Melee',
+    skill_fighting_armed_melee: 'Armed Melee',
+    skill_fighting_ranged_shot: 'Ranged Shot',
+    skill_fighting_ranged_thrown: 'Ranged Thrown',
 };
 
 // Cost to attempt each defensive skill: 1 reaction plus the listed stamina.
@@ -777,6 +875,14 @@ const DEFENSIVE_SKILL_COSTS = {
     skill_defensive_parry: { stamina: 1, reactions: 1 },
     skill_defensive_deflect: { stamina: 1, reactions: 1 },
     skill_defensive_dodge: { stamina: 2, reactions: 1 },
+};
+
+// Fighting styles cost stamina like defensive skills, but no Reaction.
+const FIGHTING_SKILL_COSTS = {
+    skill_fighting_unarmed_melee: { stamina: 1 },
+    skill_fighting_armed_melee: { stamina: 1 },
+    skill_fighting_ranged_shot: { stamina: 1 },
+    skill_fighting_ranged_thrown: { stamina: 1 },
 };
 
 // Mirrors AGE_POINT_BUDGET but tracked separately so it can be tuned
@@ -853,6 +959,30 @@ const rollDefensiveSkill = (skillAttr) => {
 
 DEFENSIVE_SKILL_ATTRS.forEach(skillAttr => {
     on(`clicked:roll_${skillAttr}`, () => rollDefensiveSkill(skillAttr));
+});
+
+const rollFightingSkill = (skillAttr) => {
+    const cost = FIGHTING_SKILL_COSTS[skillAttr];
+    getAttrs(['stamina'], values => {
+        const stamina = parseInt(values.stamina) || 0;
+        if (stamina <= 0) {
+            notify(SKILL_LABELS[skillAttr], "Not enough Stamina");
+            return;
+        }
+        // Only spend the resources once the roll actually completes - if the
+        // player cancels the Modifier prompt, startRoll's callback never fires.
+        rollSkill(skillAttr, cost.stamina, (results) => {
+            getAttrs(['stamina'], current => {
+                setAttrs({
+                    stamina: (parseInt(current.stamina) || 0) - results.stamina.result,
+                });
+            });
+        });
+    });
+};
+
+FIGHTING_SKILL_ATTRS.forEach(skillAttr => {
+    on(`clicked:roll_${skillAttr}`, () => rollFightingSkill(skillAttr));
 });
 
 const getSkillModifierValues = (override) => {
