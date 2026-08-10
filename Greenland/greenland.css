@@ -195,6 +195,19 @@
   font-weight: bold;
 }
 
+.gl-wounds-imminent-death-flag {
+  display: none;
+}
+
+.gl-imminent-death-icon {
+  display: none;
+  font-size: 1.2em;
+}
+
+.gl-wounds-imminent-death-flag:checked ~ .gl-imminent-death-icon {
+  display: inline;
+}
+
 .gl-charmancer-heading {
   margin: 0 0 10px 0;
 }

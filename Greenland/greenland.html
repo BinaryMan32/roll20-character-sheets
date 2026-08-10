@@ -263,6 +263,14 @@
                 <span class="gl-counter-max-sep">/</span>
                 <input type="number" name="attr_reactions_max" value="3" readonly tabindex="-1">
             </div>
+            <div class="gl-counter-display">
+                <label data-i18n="counter-wounds">Wounds</label>
+                <input type="number" name="attr_wounds_minor" min="0" value="0">
+                <span class="gl-counter-max-sep">/</span>
+                <input type="number" name="attr_wounds_major" min="0" value="0">
+                <input type="checkbox" name="attr_wounds_imminent_death" class="gl-wounds-imminent-death-flag" value="1" tabindex="-1">
+                <span class="gl-imminent-death-icon" title="Imminent Death">&#128128;</span>
+            </div>
             <button type="action" name="act_next_turn" data-i18n="counter-next-turn">Next Turn</button>
         </div>
     </div>
@@ -1100,6 +1108,22 @@ on('clicked:next_turn', () => {
             stamina_round: stamina,
             reactions: values.reactions_max,
         });
+    });
+});
+
+const updateImminentDeath = (minor, major) => {
+    setAttrs({ wounds_imminent_death: (minor + 2 * major) >= 4 ? 1 : 0 }, { silent: true });
+};
+
+on('change:wounds_minor change:wounds_major', () => {
+    getAttrs(['wounds_minor', 'wounds_major'], values => {
+        updateImminentDeath(parseInt(values.wounds_minor) || 0, parseInt(values.wounds_major) || 0);
+    });
+});
+
+on('sheet:opened', () => {
+    getAttrs(['wounds_minor', 'wounds_major'], values => {
+        updateImminentDeath(parseInt(values.wounds_minor) || 0, parseInt(values.wounds_major) || 0);
     });
 });
 </script>
