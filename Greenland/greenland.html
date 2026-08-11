@@ -70,6 +70,20 @@
                 </select>
                 <button type="action" name="act_roll_strength" data-i18n="attribute-roll">Roll</button>
             </div>
+            <div class="gl-ability-group">
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-strength-push-pull">Push/Pull (kg)</span>
+                    <input type="number" name="attr_strength_push_pull" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-strength-lift">Lift (kg)</span>
+                    <input type="number" name="attr_strength_lift" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-strength-throw">Throw 1kg (m)</span>
+                    <input type="number" name="attr_strength_throw" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+            </div>
             <div class="gl-attribute-display">
                 <label data-i18n="attribute-agility">Agility</label>
                 <select name="attr_agility_modifier" class="gl-readonly-select" tabindex="-1">
@@ -81,6 +95,40 @@
                 </select>
                 <button type="action" name="act_roll_agility" data-i18n="attribute-roll">Roll</button>
             </div>
+            <div class="gl-ability-group">
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-jog">Jog (m/s)</span>
+                    <input type="number" name="attr_agility_jog" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-run">Run (m/s)</span>
+                    <input type="number" name="attr_agility_run" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-sprint">Sprint (m/s)</span>
+                    <input type="number" name="attr_agility_sprint" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-climb">Climb (m/s)</span>
+                    <input type="number" name="attr_agility_climb" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-swim">Swim (m/s)</span>
+                    <input type="number" name="attr_agility_swim" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-standing-jump">Standing Jump (m)</span>
+                    <input type="number" name="attr_agility_standing_jump" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-sprint-jump">Sprinting Jump (m)</span>
+                    <input type="number" name="attr_agility_sprint_jump" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-high-jump">High Jump (m)</span>
+                    <input type="number" name="attr_agility_high_jump" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+            </div>
             <div class="gl-attribute-display">
                 <label data-i18n="attribute-endurance">Endurance</label>
                 <select name="attr_endurance_modifier" class="gl-readonly-select" tabindex="-1">
@@ -91,6 +139,12 @@
                     <option value="2" data-i18n="attribute-level-plus-2">Legendary</option>
                 </select>
                 <button type="action" name="act_roll_endurance" data-i18n="attribute-roll">Roll</button>
+            </div>
+            <div class="gl-ability-group">
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-endurance-hold-breath">Hold Breath (min)</span>
+                    <input type="number" name="attr_endurance_hold_breath" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
             </div>
             <div class="gl-attribute-display">
                 <label data-i18n="attribute-awareness">Awareness</label>
@@ -1096,6 +1150,71 @@ on('sheet:opened', () => {
     getAttrs(['endurance_modifier', 'awareness_modifier'], values => {
         updateStaminaMax(parseInt(values.endurance_modifier) || 0);
         updateReactionsMax(parseInt(values.awareness_modifier) || 0);
+    });
+});
+
+const STRENGTH_ABILITIES_TABLE = {
+    '-2': { strength_push_pull: 25, strength_lift: 25, strength_throw: 10 },
+    '-1': { strength_push_pull: 50, strength_lift: 50, strength_throw: 25 },
+    '0': { strength_push_pull: 100, strength_lift: 100, strength_throw: 50 },
+    '1': { strength_push_pull: 300, strength_lift: 300, strength_throw: 75 },
+    '2': { strength_push_pull: 500, strength_lift: 500, strength_throw: 100 },
+};
+
+// Jump distances are multiples of height (in m); the rest are flat speeds (m/s).
+const AGILITY_ABILITIES_TABLE = {
+    '-2': { agility_jog: .5, agility_run: 1, agility_sprint: 2, agility_climb: .25, agility_swim: .25, standingJumpMult: .25, sprintJumpMult: .5, highJumpMult: .1 },
+    '-1': { agility_jog: 1, agility_run: 2, agility_sprint: 4, agility_climb: .5, agility_swim: .5, standingJumpMult: .5, sprintJumpMult: 1, highJumpMult: .25 },
+    '0': { agility_jog: 1.5, agility_run: 3, agility_sprint: 6, agility_climb: 1, agility_swim: 1, standingJumpMult: 1, sprintJumpMult: 2, highJumpMult: .5 },
+    '1': { agility_jog: 2, agility_run: 4, agility_sprint: 8, agility_climb: 2, agility_swim: 2, standingJumpMult: 1.5, sprintJumpMult: 4, highJumpMult: .75 },
+    '2': { agility_jog: 2.5, agility_run: 5, agility_sprint: 10, agility_climb: 3, agility_swim: 2.5, standingJumpMult: 2, sprintJumpMult: 6, highJumpMult: 1 },
+};
+
+const ENDURANCE_ABILITIES_TABLE = {
+    '-2': { endurance_hold_breath: .5 },
+    '-1': { endurance_hold_breath: 1 },
+    '0': { endurance_hold_breath: 2 },
+    '1': { endurance_hold_breath: 5 },
+    '2': { endurance_hold_breath: 10 },
+};
+
+const round2 = n => Math.round(n * 100) / 100;
+
+const updateStrengthAbilities = (modifier) => {
+    setAttrs({ ...(STRENGTH_ABILITIES_TABLE[modifier] || STRENGTH_ABILITIES_TABLE['0']) }, { silent: true });
+};
+
+const updateAgilityAbilities = (modifier, height) => {
+    const table = AGILITY_ABILITIES_TABLE[modifier] || AGILITY_ABILITIES_TABLE['0'];
+    setAttrs({
+        agility_jog: table.agility_jog,
+        agility_run: table.agility_run,
+        agility_sprint: table.agility_sprint,
+        agility_climb: table.agility_climb,
+        agility_swim: table.agility_swim,
+        agility_standing_jump: round2(table.standingJumpMult * height),
+        agility_sprint_jump: round2(table.sprintJumpMult * height),
+        agility_high_jump: round2(table.highJumpMult * height),
+    }, { silent: true });
+};
+
+const updateEnduranceAbilities = (modifier) => {
+    setAttrs({ ...(ENDURANCE_ABILITIES_TABLE[modifier] || ENDURANCE_ABILITIES_TABLE['0']) }, { silent: true });
+};
+
+on('change:strength_modifier', eventInfo => updateStrengthAbilities(eventInfo.newValue));
+on('change:endurance_modifier', eventInfo => updateEnduranceAbilities(eventInfo.newValue));
+on('change:agility_modifier change:height', () => {
+    getAttrs(['agility_modifier', 'height'], values => {
+        updateAgilityAbilities(values.agility_modifier, parseFloat(values.height) || HEIGHT_AVG);
+    });
+});
+
+on('sheet:opened', () => {
+    getAttrs(['strength_modifier', 'agility_modifier', 'endurance_modifier', 'height'], values => {
+        updateStrengthAbilities(values.strength_modifier);
+        updateAgilityAbilities(values.agility_modifier, parseFloat(values.height) || HEIGHT_AVG);
+        updateEnduranceAbilities(values.endurance_modifier);
     });
 });
 

@@ -98,6 +98,34 @@
   appearance: none;
 }
 
+.gl-ability-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: -4px 0 12px 0;
+}
+
+.gl-ability-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.gl-ability-stat-label {
+  font-size: 0.8em;
+  color: #555;
+}
+
+.gl-ability-stat-value {
+  width: 42px;
+  padding: 1px;
+  text-align: center;
+  font-size: 0.85em;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+
 .gl-attribute-row {
   margin-bottom: 12px;
 }
