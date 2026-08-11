@@ -35,11 +35,51 @@
   margin-top: 10px;
 }
 
+#basic-tab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "info info"
+    "traits counters"
+    "attributes skills"
+    "fighting defensive";
+  gap: 20px;
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
 .info-grid {
+  grid-area: info;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 20px;
+}
+
+.gl-traits-section {
+  grid-area: traits;
+}
+
+.gl-counters-section {
+  grid-area: counters;
+}
+
+.gl-attributes-section {
+  grid-area: attributes;
+}
+
+.gl-skills-section {
+  grid-area: skills;
+}
+
+.gl-fighting-section {
+  grid-area: fighting;
+}
+
+.gl-defensive-section {
+  grid-area: defensive;
 }
 
 .info-field label {
@@ -91,10 +131,6 @@
   min-width: 100px;
 }
 
-.gl-traits-section {
-  margin-top: 15px;
-}
-
 .gl-trait-display {
   display: flex;
   align-items: center;
@@ -125,10 +161,6 @@
   font-size: 0.85em;
   color: #555;
   margin: 2px 0 4px 0;
-}
-
-.gl-attributes-section {
-  margin-top: 15px;
 }
 
 .gl-attribute-display {
@@ -210,10 +242,6 @@
   text-align: center;
 }
 
-.gl-skills-section {
-  margin-top: 15px;
-}
-
 .gl-skill-display {
   display: flex;
   align-items: center;
@@ -252,10 +280,6 @@
 .gl-skill-summary input {
   width: 50px;
   text-align: center;
-}
-
-.gl-counters-section {
-  margin-top: 15px;
 }
 
 .gl-counter-display {
