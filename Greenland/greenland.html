@@ -1113,13 +1113,12 @@ on("mancerfinish:newcharacter", eventInfo => setupCharacter(eventInfo.data));
 // event handlers
 on("clicked:launch_charmancer", eventInfo => startCharactermancer("intro"));
 
-const STAMINA_BASE = 6;
 const REACTIONS_BASE = 3;
 
 const updateStaminaMax = (enduranceModifier) => {
     const STAMINA_FIELDS = ['stamina', 'stamina_round'];
     getAttrs(STAMINA_FIELDS, values => {
-        const staminaMax = STAMINA_BASE + 2 * enduranceModifier;
+        const staminaMax = (ENDURANCE_ABILITIES_TABLE[enduranceModifier] || ENDURANCE_ABILITIES_TABLE['0']).stamina_max;
         const updates = { stamina_max: staminaMax };
         STAMINA_FIELDS.forEach(field => {
             const value = parseInt(values[field]);
@@ -1171,11 +1170,11 @@ const AGILITY_ABILITIES_TABLE = {
 };
 
 const ENDURANCE_ABILITIES_TABLE = {
-    '-2': { endurance_hold_breath: .5 },
-    '-1': { endurance_hold_breath: 1 },
-    '0': { endurance_hold_breath: 2 },
-    '1': { endurance_hold_breath: 5 },
-    '2': { endurance_hold_breath: 10 },
+    '-2': { stamina_max: 2, endurance_hold_breath: .5 },
+    '-1': { stamina_max: 4, endurance_hold_breath: 1 },
+    '0': { stamina_max: 6, endurance_hold_breath: 2 },
+    '1': { stamina_max: 8, endurance_hold_breath: 5 },
+    '2': { stamina_max: 10, endurance_hold_breath: 10 },
 };
 
 const round2 = n => Math.round(n * 100) / 100;
@@ -1199,7 +1198,8 @@ const updateAgilityAbilities = (modifier, height) => {
 };
 
 const updateEnduranceAbilities = (modifier) => {
-    setAttrs({ ...(ENDURANCE_ABILITIES_TABLE[modifier] || ENDURANCE_ABILITIES_TABLE['0']) }, { silent: true });
+    const table = ENDURANCE_ABILITIES_TABLE[modifier] || ENDURANCE_ABILITIES_TABLE['0'];
+    setAttrs({ endurance_hold_breath: table.endurance_hold_breath }, { silent: true });
 };
 
 on('change:strength_modifier', eventInfo => updateStrengthAbilities(eventInfo.newValue));
