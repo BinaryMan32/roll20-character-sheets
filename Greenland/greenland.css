@@ -35,6 +35,62 @@
   margin-top: 10px;
 }
 
+.info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+}
+
+.info-field label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.info-field input,
+.info-field select {
+  font-weight: normal;
+  height: 24px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+.info-field select {
+  padding: 0;
+  margin: 0;
+  line-height: 24px;
+}
+
+.info-field input[type="number"] {
+  width: 65px;
+}
+
+.info-field select {
+  width: 90px;
+}
+
+.info-field:first-child {
+  flex: 1 1 170px;
+  max-width: 320px;
+}
+
+.info-field:first-child label {
+  width: 100%;
+}
+
+.info-field:first-child input {
+  width: 100%;
+  min-width: 0;
+}
+
+.info-field:first-child input {
+  flex: 1;
+  min-width: 100px;
+}
+
 .gl-traits-section {
   margin-top: 15px;
 }
