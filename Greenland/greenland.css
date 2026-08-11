@@ -122,13 +122,8 @@
 }
 
 .info-field:first-child input {
-  width: 100%;
-  min-width: 0;
-}
-
-.info-field:first-child input {
   flex: 1;
-  min-width: 100px;
+  min-width: 0;
 }
 
 .gl-trait-display {
@@ -173,6 +168,11 @@
 .gl-attribute-display label {
   flex: 1;
   font-weight: bold;
+}
+
+.gl-attribute-display select {
+  width: 17ch;
+  box-sizing: border-box;
 }
 
 .gl-readonly-select {
@@ -252,6 +252,11 @@
 .gl-skill-display label {
   flex: 1;
   font-weight: bold;
+}
+
+.gl-skill-display select {
+  width: 19ch;
+  box-sizing: border-box;
 }
 
 .gl-skill-row {
