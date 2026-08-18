@@ -97,6 +97,10 @@
             </div>
             <div class="gl-ability-group">
                 <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-actions">Actions</span>
+                    <input type="number" name="attr_agility_actions" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stat">
                     <span class="gl-ability-stat-label" data-i18n="ability-agility-jog">Jog (m/s)</span>
                     <input type="number" name="attr_agility_jog" class="gl-ability-stat-value" readonly tabindex="-1">
                 </div>
@@ -1168,11 +1172,11 @@ const STRENGTH_ABILITIES_TABLE = {
 
 // Jump distances are multiples of height (in m); the rest are flat speeds (m/s).
 const AGILITY_ABILITIES_TABLE = {
-    '-2': { agility_jog: .5, agility_run: 1, agility_sprint: 2, agility_climb: .25, agility_swim: .25, standingJumpMult: .25, sprintJumpMult: .5, highJumpMult: .1 },
-    '-1': { agility_jog: 1, agility_run: 2, agility_sprint: 4, agility_climb: .5, agility_swim: .5, standingJumpMult: .5, sprintJumpMult: 1, highJumpMult: .25 },
-    '0': { agility_jog: 1.5, agility_run: 3, agility_sprint: 6, agility_climb: 1, agility_swim: 1, standingJumpMult: 1, sprintJumpMult: 2, highJumpMult: .5 },
-    '1': { agility_jog: 2, agility_run: 4, agility_sprint: 8, agility_climb: 2, agility_swim: 2, standingJumpMult: 1.5, sprintJumpMult: 4, highJumpMult: .75 },
-    '2': { agility_jog: 2.5, agility_run: 5, agility_sprint: 10, agility_climb: 3, agility_swim: 2.5, standingJumpMult: 2, sprintJumpMult: 6, highJumpMult: 1 },
+    '-2': { actions: 1, agility_jog: .5, agility_run: 1, agility_sprint: 2, agility_climb: .25, agility_swim: .25, standingJumpMult: .25, sprintJumpMult: .5, highJumpMult: .1 },
+    '-1': { actions: 1, agility_jog: 1, agility_run: 2, agility_sprint: 4, agility_climb: .5, agility_swim: .5, standingJumpMult: .5, sprintJumpMult: 1, highJumpMult: .25 },
+    '0': { actions: 2, agility_jog: 1.5, agility_run: 3, agility_sprint: 6, agility_climb: 1, agility_swim: 1, standingJumpMult: 1, sprintJumpMult: 2, highJumpMult: .5 },
+    '1': { actions: 2, agility_jog: 2, agility_run: 4, agility_sprint: 8, agility_climb: 2, agility_swim: 2, standingJumpMult: 1.5, sprintJumpMult: 4, highJumpMult: .75 },
+    '2': { actions: 3, agility_jog: 2.5, agility_run: 5, agility_sprint: 10, agility_climb: 3, agility_swim: 2.5, standingJumpMult: 2, sprintJumpMult: 6, highJumpMult: 1 },
 };
 
 const ENDURANCE_ABILITIES_TABLE = {
@@ -1192,6 +1196,7 @@ const updateStrengthAbilities = (modifier) => {
 const updateAgilityAbilities = (modifier, height) => {
     const table = AGILITY_ABILITIES_TABLE[modifier] || AGILITY_ABILITIES_TABLE['0'];
     setAttrs({
+        agility_actions: table.actions,
         agility_jog: table.agility_jog,
         agility_run: table.agility_run,
         agility_sprint: table.agility_sprint,

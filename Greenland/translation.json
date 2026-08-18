@@ -30,6 +30,7 @@
   "ability-strength-push-pull": "Push/Pull (kg)",
   "ability-strength-lift": "Lift (kg)",
   "ability-strength-throw": "Throw 1kg (m)",
+  "ability-agility-actions": "Actions",
   "ability-agility-jog": "Jog (m/s)",
   "ability-agility-run": "Run (m/s)",
   "ability-agility-sprint": "Sprint (m/s)",
