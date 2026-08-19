@@ -161,6 +161,17 @@
                 </select>
                 <button type="action" name="act_roll_awareness" data-i18n="attribute-roll">Roll</button>
             </div>
+            <div class="gl-attribute-display">
+                <label data-i18n="attribute-willpower">Willpower</label>
+                <select name="attr_willpower_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="attribute-level-minus-2">Frail</option>
+                    <option value="-1" data-i18n="attribute-level-minus-1">Weak</option>
+                    <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                    <option value="1" data-i18n="attribute-level-plus-1">Exceptional</option>
+                    <option value="2" data-i18n="attribute-level-plus-2">Legendary</option>
+                </select>
+                <button type="action" name="act_roll_willpower" data-i18n="attribute-roll">Roll</button>
+            </div>
         </div>
 
         <div class="gl-skills-section">
@@ -454,6 +465,7 @@
         <p class="gl-charmancer-description" data-i18n="charmancer-step-attributes"></p>
         <div class="gl-attribute-row">
             <label data-i18n="attribute-strength">Strength</label>
+            <p class="gl-attribute-desc" data-i18n="attribute-strength-desc"></p>
             <select name="comp_strength">
                 <option value="-2" data-i18n="attribute-level-minus-2">Frail</option>
                 <option value="-1" data-i18n="attribute-level-minus-1">Weak</option>
@@ -472,6 +484,7 @@
         </div>
         <div class="gl-attribute-row">
             <label data-i18n="attribute-agility">Agility</label>
+            <p class="gl-attribute-desc" data-i18n="attribute-agility-desc"></p>
             <select name="comp_agility">
                 <option value="-2" data-i18n="attribute-level-minus-2">Frail</option>
                 <option value="-1" data-i18n="attribute-level-minus-1">Weak</option>
@@ -490,6 +503,7 @@
         </div>
         <div class="gl-attribute-row">
             <label data-i18n="attribute-endurance">Endurance</label>
+            <p class="gl-attribute-desc" data-i18n="attribute-endurance-desc"></p>
             <select name="comp_endurance">
                 <option value="-2" data-i18n="attribute-level-minus-2">Frail</option>
                 <option value="-1" data-i18n="attribute-level-minus-1">Weak</option>
@@ -500,7 +514,19 @@
         </div>
         <div class="gl-attribute-row">
             <label data-i18n="attribute-awareness">Awareness</label>
+            <p class="gl-attribute-desc" data-i18n="attribute-awareness-desc"></p>
             <select name="comp_awareness">
+                <option value="-2" data-i18n="attribute-level-minus-2">Frail</option>
+                <option value="-1" data-i18n="attribute-level-minus-1">Weak</option>
+                <option value="0" selected data-i18n="attribute-level-average">Average</option>
+                <option value="1" data-i18n="attribute-level-plus-1">Exceptional</option>
+                <option value="2" data-i18n="attribute-level-plus-2">Legendary</option>
+            </select>
+        </div>
+        <div class="gl-attribute-row">
+            <label data-i18n="attribute-willpower">Willpower</label>
+            <p class="gl-attribute-desc" data-i18n="attribute-willpower-desc"></p>
+            <select name="comp_willpower">
                 <option value="-2" data-i18n="attribute-level-minus-2">Frail</option>
                 <option value="-1" data-i18n="attribute-level-minus-1">Weak</option>
                 <option value="0" selected data-i18n="attribute-level-average">Average</option>
@@ -773,7 +799,7 @@ on("mancerchange:weight", (eventInfo) => {
     }
 });
 
-const ATTRIBUTE_NAMES = ['strength', 'agility', 'endurance', 'awareness'];
+const ATTRIBUTE_NAMES = ['strength', 'agility', 'endurance', 'awareness', 'willpower'];
 const ATTRIBUTE_DEFAULTS = Object.fromEntries(ATTRIBUTE_NAMES.map(name => [name, 0]));
 
 const AGE_POINT_BUDGET = {
@@ -796,7 +822,7 @@ const WEIGHT_ATTRIBUTE_CAPS = [
 const getWeightCaps = (weight) => WEIGHT_ATTRIBUTE_CAPS.find(tier => weight >= tier.minWeight)
     || WEIGHT_ATTRIBUTE_CAPS[WEIGHT_ATTRIBUTE_CAPS.length - 1];
 
-const ATTRIBUTE_LABELS = { strength: 'Strength', agility: 'Agility', endurance: 'Endurance', awareness: 'Awareness' };
+const ATTRIBUTE_LABELS = { strength: 'Strength', agility: 'Agility', endurance: 'Endurance', awareness: 'Awareness', willpower: 'Willpower' };
 
 const rollAttribute = (name) => {
     const rollString = `&{template:attribute-roll} {{name=${ATTRIBUTE_LABELS[name]}}} `
