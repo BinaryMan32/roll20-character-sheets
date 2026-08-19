@@ -172,6 +172,28 @@
                 </select>
                 <button type="action" name="act_roll_willpower" data-i18n="attribute-roll">Roll</button>
             </div>
+            <div class="gl-ability-group">
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-willpower-range">Range</span>
+                    <select name="attr_willpower_modifier" class="gl-readonly-select gl-ability-stat-select" tabindex="-1">
+                        <option value="-2" data-i18n="ability-willpower-range-minus-2">None</option>
+                        <option value="-1" data-i18n="ability-willpower-range-minus-1">Self</option>
+                        <option value="0" selected data-i18n="ability-willpower-range-average">Natural Reach</option>
+                        <option value="1" data-i18n="ability-willpower-range-plus-1">Sight</option>
+                        <option value="2" data-i18n="ability-willpower-range-plus-2">Any known place</option>
+                    </select>
+                </div>
+                <div class="gl-ability-stat">
+                    <span class="gl-ability-stat-label" data-i18n="ability-willpower-targets">Number of Targets</span>
+                    <select name="attr_willpower_modifier" class="gl-readonly-select gl-ability-stat-select" tabindex="-1">
+                        <option value="-2" data-i18n="ability-willpower-targets-minus-2">None</option>
+                        <option value="-1" data-i18n="ability-willpower-targets-minus-1">1</option>
+                        <option value="0" selected data-i18n="ability-willpower-targets-average">All touched</option>
+                        <option value="1" data-i18n="ability-willpower-targets-plus-1">All seen</option>
+                        <option value="2" data-i18n="ability-willpower-targets-plus-2">Any known targets</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="gl-skills-section">
