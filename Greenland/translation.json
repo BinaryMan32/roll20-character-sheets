@@ -114,7 +114,14 @@
   "skill-fighting-ranged-thrown-desc": "Requires 1 Stamina. Object or creature can be thrown to inflict damage. Objects not designed for the purposes may have a lessened impact. Weight of the creature or object should be considered when determining damage.",
   "counters-heading": "Counters",
   "counter-stamina": "Stamina",
+  "counter-stamina-current": "Current",
+  "counter-stamina-round": "Round",
+  "counter-stamina-max": "Max",
   "counter-reactions": "Reactions",
+  "counter-reactions-current": "Current",
+  "counter-reactions-max": "Max",
   "counter-wounds": "Wounds",
+  "counter-wounds-minor": "Minor",
+  "counter-wounds-major": "Major",
   "counter-next-turn": "Next Turn"
 }

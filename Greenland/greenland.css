@@ -320,8 +320,33 @@
   text-align: center;
 }
 
-.gl-counter-max-sep {
-  font-weight: bold;
+.gl-counter-boxes {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 0;
+}
+
+.gl-counter-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+}
+
+.gl-counter-box + .gl-counter-box {
+  border-left: 1px solid #ddd;
+}
+
+.gl-counter-box-label {
+  font-size: 0.65em;
+  font-weight: normal;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .gl-wounds-imminent-death-flag {

@@ -370,25 +370,48 @@
             <h3 data-i18n="counters-heading">Counters</h3>
             <div class="gl-counter-display">
                 <label data-i18n="counter-stamina">Stamina</label>
-                <input type="number" name="attr_stamina" max="@{stamina_round}">
-                <span class="gl-counter-max-sep">/</span>
-                <input type="number" name="attr_stamina_round" min="0" max="@{stamina_max}">
-                <span class="gl-counter-max-sep">/</span>
-                <input type="number" name="attr_stamina_max" readonly tabindex="-1">
+                <div class="gl-counter-boxes">
+                    <div class="gl-counter-box">
+                        <input type="number" name="attr_stamina" max="@{stamina_round}">
+                        <span class="gl-counter-box-label" data-i18n="counter-stamina-current">Current</span>
+                    </div>
+                    <div class="gl-counter-box">
+                        <input type="number" name="attr_stamina_round" min="0" max="@{stamina_max}">
+                        <span class="gl-counter-box-label" data-i18n="counter-stamina-round">Round</span>
+                    </div>
+                    <div class="gl-counter-box">
+                        <input type="number" name="attr_stamina_max" readonly tabindex="-1">
+                        <span class="gl-counter-box-label" data-i18n="counter-stamina-max">Max</span>
+                    </div>
+                </div>
             </div>
             <div class="gl-counter-display">
                 <label data-i18n="counter-reactions">Reactions</label>
-                <input type="number" name="attr_reactions" min="0" max="@{reactions_max}" value="3">
-                <span class="gl-counter-max-sep">/</span>
-                <input type="number" name="attr_reactions_max" value="3" readonly tabindex="-1">
+                <div class="gl-counter-boxes">
+                    <div class="gl-counter-box">
+                        <input type="number" name="attr_reactions" min="0" max="@{reactions_max}" value="3">
+                        <span class="gl-counter-box-label" data-i18n="counter-reactions-current">Current</span>
+                    </div>
+                    <div class="gl-counter-box">
+                        <input type="number" name="attr_reactions_max" value="3" readonly tabindex="-1">
+                        <span class="gl-counter-box-label" data-i18n="counter-reactions-max">Max</span>
+                    </div>
+                </div>
             </div>
             <div class="gl-counter-display">
                 <label data-i18n="counter-wounds">Wounds</label>
                 <input type="checkbox" name="attr_wounds_imminent_death" class="gl-wounds-imminent-death-flag" value="1" tabindex="-1">
                 <span class="gl-imminent-death-icon" title="Imminent Death">&#128128;</span>
-                <input type="number" name="attr_wounds_minor" min="0" value="0">
-                <span class="gl-counter-max-sep">/</span>
-                <input type="number" name="attr_wounds_major" min="0" value="0">
+                <div class="gl-counter-boxes">
+                    <div class="gl-counter-box">
+                        <input type="number" name="attr_wounds_minor" min="0" value="0">
+                        <span class="gl-counter-box-label" data-i18n="counter-wounds-minor">Minor</span>
+                    </div>
+                    <div class="gl-counter-box">
+                        <input type="number" name="attr_wounds_major" min="0" value="0">
+                        <span class="gl-counter-box-label" data-i18n="counter-wounds-major">Major</span>
+                    </div>
+                </div>
             </div>
             <button type="action" name="act_next_turn" data-i18n="counter-next-turn">Next Turn</button>
         </div>
