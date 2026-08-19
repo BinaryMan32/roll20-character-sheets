@@ -253,6 +253,28 @@
                 </select>
                 <button type="action" name="act_roll_skill_survival" data-i18n="skill-roll">Roll</button>
             </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-manipulation">Manipulation</label>
+                <select name="attr_skill_manipulation_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_manipulation" data-i18n="skill-roll">Roll</button>
+            </div>
+            <div class="gl-skill-display">
+                <label data-i18n="skill-magic">Magic</label>
+                <select name="attr_skill_magic_modifier" class="gl-readonly-select" tabindex="-1">
+                    <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                    <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                    <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                    <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                    <option value="2" data-i18n="skill-level-plus-2">Master</option>
+                </select>
+                <button type="action" name="act_roll_skill_magic" data-i18n="skill-roll">Roll</button>
+            </div>
 
         </div>
 
@@ -669,6 +691,28 @@
                 <option value="2" data-i18n="skill-level-plus-2">Master</option>
             </select>
         </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-manipulation">Manipulation</label>
+            <p class="gl-skill-desc" data-i18n="skill-manipulation-desc"></p>
+            <select name="comp_skill_manipulation">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
+        <div class="gl-skill-row">
+            <label data-i18n="skill-magic">Magic</label>
+            <p class="gl-skill-desc" data-i18n="skill-magic-desc"></p>
+            <select name="comp_skill_magic">
+                <option value="-2" data-i18n="skill-level-minus-2">Inexperienced</option>
+                <option value="-1" data-i18n="skill-level-minus-1">Novice</option>
+                <option value="0" selected data-i18n="skill-level-average">Journeyman</option>
+                <option value="1" data-i18n="skill-level-plus-1">Expert</option>
+                <option value="2" data-i18n="skill-level-plus-2">Master</option>
+            </select>
+        </div>
         <h3 data-i18n="skills-defensive-heading">Defensive Skills</h3>
         <p class="gl-charmancer-description" data-i18n="skills-defensive-desc"></p>
         <div class="gl-skill-row">
@@ -970,7 +1014,7 @@ TRAIT_ATTRS.forEach(attr => {
     on(`mancerchange:${attr}`, eventInfo => enforceTrait(attr, eventInfo));
 });
 
-const REGULAR_SKILL_ATTRS = ['skill_legerdemain', 'skill_linguistics', 'skill_logic', 'skill_mechanics', 'skill_survival'];
+const REGULAR_SKILL_ATTRS = ['skill_legerdemain', 'skill_linguistics', 'skill_logic', 'skill_mechanics', 'skill_survival', 'skill_manipulation', 'skill_magic'];
 const DEFENSIVE_SKILL_ATTRS = ['skill_defensive_parry', 'skill_defensive_deflect', 'skill_defensive_dodge'];
 const FIGHTING_SKILL_ATTRS = ['skill_fighting_unarmed_melee', 'skill_fighting_armed_melee', 'skill_fighting_ranged_shot', 'skill_fighting_ranged_thrown'];
 const SKILL_ATTRS = [...REGULAR_SKILL_ATTRS, ...DEFENSIVE_SKILL_ATTRS, ...FIGHTING_SKILL_ATTRS];
@@ -981,6 +1025,8 @@ const SKILL_LABELS = {
     skill_logic: 'Logic',
     skill_mechanics: 'Mechanics',
     skill_survival: 'Survival',
+    skill_manipulation: 'Manipulation',
+    skill_magic: 'Magic',
     skill_defensive_parry: 'Parry',
     skill_defensive_deflect: 'Deflect',
     skill_defensive_dodge: 'Dodge',
