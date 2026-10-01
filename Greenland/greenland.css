@@ -214,6 +214,28 @@
   color: inherit;
 }
 
+.gl-move-table {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  justify-content: start;
+  align-items: baseline;
+  column-gap: 4px;
+}
+
+.gl-move-table-head {
+  font-size: 0.75em;
+  color: #777;
+  text-align: center;
+}
+
+.gl-ability-stack {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  align-content: start;
+  align-items: baseline;
+  column-gap: 4px;
+}
+
 .gl-ability-stat-select {
   width: 15ch;
   box-sizing: border-box;

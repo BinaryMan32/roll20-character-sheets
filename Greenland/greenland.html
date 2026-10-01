@@ -96,39 +96,35 @@
                 <button type="action" name="act_roll_agility" data-i18n="attribute-roll">Roll</button>
             </div>
             <div class="gl-ability-group">
-                <div class="gl-ability-stat">
+                <div class="gl-move-table">
+                    <span></span>
+                    <span class="gl-move-table-head" data-i18n="ability-agility-speed" data-i18n-title="ability-agility-speed-desc">m/s</span>
+                    <span class="gl-move-table-head" data-i18n="ability-agility-turn-dist" data-i18n-title="ability-agility-turn-dist-desc">m/turn</span>
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-jog">Jog</span>
+                    <input type="number" name="attr_agility_jog" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <input type="number" name="attr_agility_jog_turn" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-run">Run</span>
+                    <input type="number" name="attr_agility_run" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <input type="number" name="attr_agility_run_turn" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-sprint">Sprint</span>
+                    <input type="number" name="attr_agility_sprint" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <input type="number" name="attr_agility_sprint_turn" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-climb">Climb</span>
+                    <input type="number" name="attr_agility_climb" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <input type="number" name="attr_agility_climb_turn" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <span class="gl-ability-stat-label" data-i18n="ability-agility-swim">Swim</span>
+                    <input type="number" name="attr_agility_swim" class="gl-ability-stat-value" readonly tabindex="-1">
+                    <input type="number" name="attr_agility_swim_turn" class="gl-ability-stat-value" readonly tabindex="-1">
+                </div>
+                <div class="gl-ability-stack">
+                    <span class="gl-move-table-head">&nbsp;</span>
+                    <span></span>
                     <span class="gl-ability-stat-label" data-i18n="ability-agility-actions">Actions</span>
                     <input type="number" name="attr_agility_actions" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
-                    <span class="gl-ability-stat-label" data-i18n="ability-agility-jog">Jog (m/s)</span>
-                    <input type="number" name="attr_agility_jog" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
-                    <span class="gl-ability-stat-label" data-i18n="ability-agility-run">Run (m/s)</span>
-                    <input type="number" name="attr_agility_run" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
-                    <span class="gl-ability-stat-label" data-i18n="ability-agility-sprint">Sprint (m/s)</span>
-                    <input type="number" name="attr_agility_sprint" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
-                    <span class="gl-ability-stat-label" data-i18n="ability-agility-climb">Climb (m/s)</span>
-                    <input type="number" name="attr_agility_climb" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
-                    <span class="gl-ability-stat-label" data-i18n="ability-agility-swim">Swim (m/s)</span>
-                    <input type="number" name="attr_agility_swim" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
                     <span class="gl-ability-stat-label" data-i18n="ability-agility-standing-jump">Standing Jump (m)</span>
                     <input type="number" name="attr_agility_standing_jump" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
                     <span class="gl-ability-stat-label" data-i18n="ability-agility-sprint-jump">Sprinting Jump (m)</span>
                     <input type="number" name="attr_agility_sprint_jump" class="gl-ability-stat-value" readonly tabindex="-1">
-                </div>
-                <div class="gl-ability-stat">
                     <span class="gl-ability-stat-label" data-i18n="ability-agility-high-jump">High Jump (m)</span>
                     <input type="number" name="attr_agility_high_jump" class="gl-ability-stat-value" readonly tabindex="-1">
                 </div>
@@ -1287,6 +1283,9 @@ const STRENGTH_ABILITIES_TABLE = {
     '2': { strength_push_pull: 500, strength_lift: 500, strength_throw: 100 },
 };
 
+const TURN_SECONDS = 5;
+const MOVE_SPEEDS = ['agility_jog', 'agility_run', 'agility_sprint', 'agility_climb', 'agility_swim'];
+
 // Jump distances are multiples of height (in m); the rest are flat speeds (m/s).
 const AGILITY_ABILITIES_TABLE = {
     '-2': { actions: 1, agility_jog: .5, agility_run: 1, agility_sprint: 2, agility_climb: .25, agility_swim: .25, standingJumpMult: .25, sprintJumpMult: .5, highJumpMult: .1 },
@@ -1312,17 +1311,17 @@ const updateStrengthAbilities = (modifier) => {
 
 const updateAgilityAbilities = (modifier, height) => {
     const table = AGILITY_ABILITIES_TABLE[modifier] || AGILITY_ABILITIES_TABLE['0'];
-    setAttrs({
+    const updates = {
         agility_actions: table.actions,
-        agility_jog: table.agility_jog,
-        agility_run: table.agility_run,
-        agility_sprint: table.agility_sprint,
-        agility_climb: table.agility_climb,
-        agility_swim: table.agility_swim,
         agility_standing_jump: round2(table.standingJumpMult * height),
         agility_sprint_jump: round2(table.sprintJumpMult * height),
         agility_high_jump: round2(table.highJumpMult * height),
-    }, { silent: true });
+    };
+    MOVE_SPEEDS.forEach(speed => {
+        updates[speed] = table[speed];
+        updates[`${speed}_turn`] = round2(table[speed] * TURN_SECONDS);
+    });
+    setAttrs(updates, { silent: true });
 };
 
 const updateEnduranceAbilities = (modifier) => {
