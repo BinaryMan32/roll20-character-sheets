@@ -129,7 +129,7 @@
 .gl-trait-display {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   margin-bottom: 8px;
 }
 
@@ -161,8 +161,17 @@
 .gl-attribute-display {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+/* Strip Roll20's default form-control margins (e.g. `.characterviewer label`) so the
+   rows stay tight and aligned; `.charsheet` is needed to outrank those selectors. */
+.charsheet .gl-trait-display > *,
+.charsheet .gl-attribute-display > *,
+.charsheet .gl-skill-display > *,
+.charsheet .gl-roll-group > * {
+  margin: 0;
 }
 
 .gl-attribute-display label {
@@ -172,7 +181,96 @@
 
 .gl-attribute-display select {
   width: 17ch;
+  height: auto;
   box-sizing: border-box;
+}
+
+/* Right-align level text so it sits next to the roll button. */
+.gl-attribute-display select,
+.gl-skill-display select {
+  text-align: right;
+  text-align-last: right;
+}
+
+/* Compact chevron roll buttons, pointing toward the chat sidebar. [type] keeps
+   these ahead of Roll20's button[type=roll] defaults, which also inject a d20
+   glyph via ::before. */
+.charsheet button.gl-roll-button[type] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 1.5em;
+  height: 1.5em;
+  min-width: 0;
+  line-height: 1;
+  color: #666;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  box-shadow: none;
+  text-shadow: none;
+  cursor: pointer;
+  position: static;
+  transition: none;
+}
+
+/* Pin the button's look in every state so Roll20's own button :hover/:active
+   styles (and their transitions) can't flash through; the group shows state. */
+.charsheet button.gl-roll-button[type]:hover,
+.charsheet button.gl-roll-button[type]:active,
+.charsheet button.gl-roll-button[type]:focus {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+/* Read-only select + roll button. The button's ::after stretches over the whole
+   group, so tapping the level text also rolls (a bigger touch target). */
+.charsheet .gl-roll-group {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding-left: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.charsheet .gl-roll-group:hover {
+  background: #e6e6e6;
+}
+
+.charsheet .gl-roll-group:active {
+  background: #d4d4d4;
+}
+
+.charsheet .gl-roll-group:hover .gl-roll-button {
+  color: #222;
+}
+
+.charsheet .gl-roll-group button.gl-roll-button[type]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.charsheet button.gl-roll-button[type]:focus-visible {
+  outline: 2px solid #999;
+  outline-offset: 1px;
+}
+
+/* Chevron drawn from two borders of a rotated square, so it follows currentColor
+   and doesn't depend on font glyphs. Shifted left to visually center the point. */
+.charsheet button.gl-roll-button[type]::before {
+  content: "";
+  width: 0.4em;
+  height: 0.4em;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateX(-0.1em) rotate(45deg);
 }
 
 .gl-readonly-select {
@@ -184,6 +282,11 @@
   opacity: 1;
   -webkit-appearance: none;
   appearance: none;
+}
+
+/* Override Roll20's .uneditable-input padding. */
+.charsheet .gl-readonly-select {
+  padding: 0;
 }
 
 .gl-ability-group {
@@ -283,7 +386,7 @@
 .gl-skill-display {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   margin-bottom: 8px;
 }
 
@@ -294,6 +397,7 @@
 
 .gl-skill-display select {
   width: 19ch;
+  height: auto;
   box-sizing: border-box;
 }
 
