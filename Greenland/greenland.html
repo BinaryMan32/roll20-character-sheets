@@ -369,7 +369,7 @@
         <div class="gl-counters-section">
             <h3 data-i18n="counters-heading">Counters</h3>
             <div class="gl-counter-display">
-                <label data-i18n="counter-stamina">Stamina</label>
+                <label data-i18n="counter-stamina" data-i18n-title="counter-stamina-desc">Stamina</label>
                 <div class="gl-counter-boxes">
                     <div class="gl-counter-box">
                         <input type="number" name="attr_stamina" max="@{stamina_round}">
@@ -386,7 +386,7 @@
                 </div>
             </div>
             <div class="gl-counter-display">
-                <label data-i18n="counter-reactions">Reactions</label>
+                <label data-i18n="counter-reactions" data-i18n-title="counter-reactions-desc">Reactions</label>
                 <div class="gl-counter-boxes">
                     <div class="gl-counter-box">
                         <input type="number" name="attr_reactions" min="0" max="@{reactions_max}" value="3">
@@ -399,7 +399,7 @@
                 </div>
             </div>
             <div class="gl-counter-display">
-                <label data-i18n="counter-wounds">Wounds</label>
+                <label data-i18n="counter-wounds" data-i18n-title="counter-wounds-desc">Wounds</label>
                 <input type="checkbox" name="attr_wounds_imminent_death" class="gl-wounds-imminent-death-flag" value="1" tabindex="-1">
                 <span class="gl-imminent-death-icon" title="Imminent Death">&#128128;</span>
                 <div class="gl-counter-boxes">
