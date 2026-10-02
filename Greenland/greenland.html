@@ -953,14 +953,25 @@ const getWeightCaps = (weight) => WEIGHT_ATTRIBUTE_CAPS.find(tier => weight >= t
 
 const ATTRIBUTE_LABELS = { strength: 'Strength', agility: 'Agility', endurance: 'Endurance', awareness: 'Awareness', willpower: 'Willpower' };
 
+const signed = (n) => n >= 0 ? `+${n}` : `${n}`;
+
+// Roll query options for the situational modifier. Each label shows the final
+// dice that would be rolled once the attribute/skill modifier is included.
+const modifierOptions = (baseModifier) => [0, 1, 2, 3, -1, -2, -3].map(offset =>
+    `${signed(offset)} (${signed(baseModifier + offset)}d6), ${offset}`
+).join('|');
+
 const rollAttribute = (name) => {
-    const rollString = `&{template:attribute-roll} {{name=${ATTRIBUTE_LABELS[name]}}} `
-        + `{{high=[[ [[1+abs([[@{${name}_modifier} + ?{Modifier|0}]])]]d6kh1]]}} `
-        + `{{low=[[ [[1+abs([[@{${name}_modifier} + ?{Modifier|0}]])]]d6kl1]]}} `
-        + `{{advantage=$[[0]]}} `
-        + `{{dice=$[[1]]}}`;
-    startRoll(rollString, results => {
-        finishRoll(results.rollId, {});
+    getAttrs([`${name}_modifier`], values => {
+        const query = `?{Modifier|${modifierOptions(parseInt(values[`${name}_modifier`]) || 0)}}`;
+        const rollString = `&{template:attribute-roll} {{name=${ATTRIBUTE_LABELS[name]}}} `
+            + `{{high=[[ [[1+abs([[@{${name}_modifier} + ${query}]])]]d6kh1]]}} `
+            + `{{low=[[ [[1+abs([[@{${name}_modifier} + ${query}]])]]d6kl1]]}} `
+            + `{{advantage=$[[0]]}} `
+            + `{{dice=$[[1]]}}`;
+        startRoll(rollString, results => {
+            finishRoll(results.rollId, {});
+        });
     });
 };
 
@@ -1135,17 +1146,21 @@ const staminaOptions = (baseStaminaCost) => {
 };
 
 const rollSkill = (skillAttr, staminaCost, onRolled) => {
-    let rollString = `&{template:attribute-roll} {{name=${SKILL_LABELS[skillAttr]}}} `
-        + `{{high=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kh1]]}} `
-        + `{{low=[[ [[1+abs([[@{${skillAttr}_modifier} + ?{Modifier|0}]])]]d6kl1]]}} `
-        + `{{advantage=$[[0]]}} `
-        + `{{dice=$[[1]]}}`;
-    if (staminaCost !== null) {
-        rollString += ` {{stamina=[[?{Stamina|${staminaOptions(staminaCost)}}]]}}`;
-    }
-    startRoll(rollString, results => {
-        finishRoll(results.rollId, {});
-        if (onRolled) onRolled(results.results);
+    const modifierAttr = `${skillAttr}_modifier`;
+    getAttrs([modifierAttr], values => {
+        const query = `?{Modifier|${modifierOptions(parseInt(values[modifierAttr]) || 0)}}`;
+        let rollString = `&{template:attribute-roll} {{name=${SKILL_LABELS[skillAttr]}}} `
+            + `{{high=[[ [[1+abs([[@{${modifierAttr}} + ${query}]])]]d6kh1]]}} `
+            + `{{low=[[ [[1+abs([[@{${modifierAttr}} + ${query}]])]]d6kl1]]}} `
+            + `{{advantage=$[[0]]}} `
+            + `{{dice=$[[1]]}}`;
+        if (staminaCost !== null) {
+            rollString += ` {{stamina=[[?{Stamina|${staminaOptions(staminaCost)}}]]}}`;
+        }
+        startRoll(rollString, results => {
+            finishRoll(results.rollId, {});
+            if (onRolled) onRolled(results.results);
+        });
     });
 };
 
