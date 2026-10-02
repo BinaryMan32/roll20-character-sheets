@@ -480,29 +480,40 @@
         </div>
     </div>
 </rolltemplate>
-<rolltemplate class="sheet-rolltemplate-attribute-roll">
-    <div class="sheet-template-container">
-        <div class="sheet-template-header">{{name}}</div>
-        <div class="sheet-template-row">
-            Rolling {{dice}}d6
-            {{#rollGreater() advantage 0}}
-            with advantage +{{advantage}}
-            {{/rollGreater() advantage 0}}
-            {{#rollLess() advantage 0}}
-            with disadvantage {{advantage}}
-            {{/rollLess() advantage 0}}
+<rolltemplate class="sheet-rolltemplate-attribute">
+    <div class="sheet-container sheet-color-{{color}}">
+        <div class="sheet-header">
+            <div class="sheet-title">{{name}}</div>
         </div>
-        <div class="sheet-template-row sheet-template-result">
-            <span>Result: </span>
-            {{#rollGreater() advantage 0}}
-            {{high}}
-            {{/rollGreater() advantage 0}}
-            {{#rollTotal() advantage 0}}
-            {{high}}
-            {{/rollTotal() advantage 0}}
-            {{#rollLess() advantage 0}}
-            {{low}}
-            {{/rollLess() advantage 0}}
+        <div class="sheet-content">
+            <div class="sheet-key">Rolling</div>
+            <div class="sheet-value">
+                {{dice}}d6
+                {{#rollGreater() advantage 0}}
+                with advantage +{{advantage}}
+                {{/rollGreater() advantage 0}}
+                {{#rollLess() advantage 0}}
+                with disadvantage {{advantage}}
+                {{/rollLess() advantage 0}}
+            </div>
+            <div class="sheet-key">Result</div>
+            <div class="sheet-value">
+                {{#rollGreater() advantage 0}}
+                {{high}}
+                {{/rollGreater() advantage 0}}
+                {{#rollTotal() advantage 0}}
+                {{high}}
+                {{/rollTotal() advantage 0}}
+                {{#rollLess() advantage 0}}
+                {{low}}
+                {{/rollLess() advantage 0}}
+            </div>
+            {{#rollGreater() stamina 0}}
+            <div class="sheet-key">Stamina</div>
+            <div class="sheet-value">
+                {{stamina}}
+            </div>
+            {{/rollGreater() stamina 0}}
         </div>
     </div>
 </rolltemplate>
@@ -964,7 +975,7 @@ const modifierOptions = (baseModifier) => [0, 1, 2, 3, -1, -2, -3].map(offset =>
 const rollAttribute = (name) => {
     getAttrs([`${name}_modifier`], values => {
         const query = `?{Modifier|${modifierOptions(parseInt(values[`${name}_modifier`]) || 0)}}`;
-        const rollString = `&{template:attribute-roll} {{name=${ATTRIBUTE_LABELS[name]}}} `
+        const rollString = `&{template:attribute} {{name=${ATTRIBUTE_LABELS[name]}}} `
             + `{{high=[[ [[1+abs([[@{${name}_modifier} + ${query}]])]]d6kh1]]}} `
             + `{{low=[[ [[1+abs([[@{${name}_modifier} + ${query}]])]]d6kl1]]}} `
             + `{{advantage=$[[0]]}} `
@@ -1149,7 +1160,7 @@ const rollSkill = (skillAttr, staminaCost, onRolled) => {
     const modifierAttr = `${skillAttr}_modifier`;
     getAttrs([modifierAttr], values => {
         const query = `?{Modifier|${modifierOptions(parseInt(values[modifierAttr]) || 0)}}`;
-        let rollString = `&{template:attribute-roll} {{name=${SKILL_LABELS[skillAttr]}}} `
+        let rollString = `&{template:attribute} {{name=${SKILL_LABELS[skillAttr]}}} `
             + `{{high=[[ [[1+abs([[@{${modifierAttr}} + ${query}]])]]d6kh1]]}} `
             + `{{low=[[ [[1+abs([[@{${modifierAttr}} + ${query}]])]]d6kl1]]}} `
             + `{{advantage=$[[0]]}} `

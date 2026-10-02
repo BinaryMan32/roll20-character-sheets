@@ -517,3 +517,85 @@
   cursor: pointer;
   border-radius: 8px;
 }
+
+/*
+   Everything below is from Jakob's Better Default Rolltemplate
+   https://wiki.roll20.net/Building_Character_Sheets/Roll_Templates#Jakob.27s_Better_Default_Rolltemplate
+*/
+
+.sheet-rolltemplate-attribute {
+  margin-left: -7px;
+}
+
+.sheet-rolltemplate-attribute .sheet-container {
+  border: 1px solid;
+  /* by default, the border is the same color as the header. You can change this here, e.g. to black */
+  border-color: var(--header-bg-color);
+}
+
+/* Header formatting - title and subtitle */
+.sheet-rolltemplate-attribute .sheet-header {
+  background-color: var(--header-bg-color);
+  /* change text-align to center to center the header text */
+  text-align: left;
+  color: var(--header-text-color);
+  padding: 5px;
+}
+.sheet-rolltemplate-attribute .sheet-title {
+  font-size:1.1em;
+}
+.sheet-rolltemplate-attribute .sheet-subtitle {
+  font-size:.9em;
+}
+
+/* example colors */
+.sheet-rolltemplate-attribute .sheet-container {
+  /* this is the default color */
+  --header-bg-color: rgba(112,32,130,1);
+  --header-text-color: #FFF;
+}
+.sheet-rolltemplate-attribute .sheet-container.sheet-color-red {
+  --header-bg-color: #F00;
+}
+.sheet-rolltemplate-attribute .sheet-container.sheet-color-green {
+  --header-bg-color: #0F0;
+  --header-text-color: #000;
+}
+
+/* Allprops part */
+.sheet-rolltemplate-attribute .sheet-content {
+  display: grid;
+  background: #222;
+  /* Header formatting - modify the column layout below */
+  grid-template-columns: auto auto;
+  /* Line height to match default roll template */
+  line-height:1.4em;
+}
+.sheet-rolltemplate-attribute .sheet-content > div {
+  padding: 5px;
+}
+
+/* Left column */
+.sheet-rolltemplate-attribute .sheet-content .sheet-key {
+  font-weight: bold;
+  padding-right: 10px;
+  text-align: right;
+}
+
+/* Empty rule, use this if you want to change the right column 
+.sheet-rolltemplate-attribute .sheet-value {
+}
+*/
+
+/* Make even-numbered rows grey */
+.sheet-rolltemplate-attribute .sheet-content :nth-child(4n+3),
+.sheet-rolltemplate-attribute .sheet-content :nth-child(4n) {
+  background:#333;
+}
+
+/* Description field */
+.sheet-rolltemplate-attribute .sheet-desc {
+  grid-column: span 2;
+  padding: 5px;
+  text-align: center;
+}
