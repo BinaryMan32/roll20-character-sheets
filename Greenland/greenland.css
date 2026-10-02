@@ -532,6 +532,9 @@
   border: 1px solid;
   /* by default, the border is the same color as the header. You can change this here, e.g. to black */
   border-color: var(--header-bg-color);
+  border-radius: 6px;
+  /* clip the header and striped rows to the rounded corners */
+  overflow: hidden;
 }
 
 /* Header formatting - title and subtitle */
