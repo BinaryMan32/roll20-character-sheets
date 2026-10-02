@@ -1184,7 +1184,7 @@ const rollDefensiveSkill = (skillAttr) => {
             notify(SKILL_LABELS[skillAttr], `Not enough Reactions (need ${cost.reactions})`);
             return;
         }
-        if (stamina <= 0) {
+        if (stamina < 0) {
             notify(SKILL_LABELS[skillAttr], "Not enough Stamina");
             return;
         }
@@ -1209,7 +1209,7 @@ const rollFightingSkill = (skillAttr) => {
     const cost = FIGHTING_SKILL_COSTS[skillAttr];
     getAttrs(['stamina'], values => {
         const stamina = parseInt(values.stamina) || 0;
-        if (stamina <= 0) {
+        if (stamina < 0) {
             notify(SKILL_LABELS[skillAttr], "Not enough Stamina");
             return;
         }
