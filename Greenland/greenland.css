@@ -521,6 +521,7 @@
 /*
    Everything below is from Jakob's Better Default Rolltemplate
    https://wiki.roll20.net/Building_Character_Sheets/Roll_Templates#Jakob.27s_Better_Default_Rolltemplate
+   Modified to use `.sheet-rolltemplate-darkmode` to support dark mode.
 */
 
 .sheet-rolltemplate-attribute {
@@ -565,12 +566,17 @@
 /* Allprops part */
 .sheet-rolltemplate-attribute .sheet-content {
   display: grid;
-  background: #222;
+  background: #FFF;
   /* Header formatting - modify the column layout below */
   grid-template-columns: auto auto;
   /* Line height to match default roll template */
   line-height:1.4em;
 }
+
+.sheet-rolltemplate-attribute.sheet-rolltemplate-darkmode .sheet-content {
+  background: #222;
+}
+
 .sheet-rolltemplate-attribute .sheet-content > div {
   padding: 5px;
 }
@@ -590,6 +596,11 @@
 /* Make even-numbered rows grey */
 .sheet-rolltemplate-attribute .sheet-content :nth-child(4n+3),
 .sheet-rolltemplate-attribute .sheet-content :nth-child(4n) {
+  background:#EEE;
+}
+
+.sheet-rolltemplate-attribute.sheet-rolltemplate-darkmode .sheet-content :nth-child(4n+3),
+.sheet-rolltemplate-attribute.sheet-rolltemplate-darkmode .sheet-content :nth-child(4n) {
   background:#333;
 }
 
